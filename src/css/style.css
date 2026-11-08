@@ -1614,3 +1614,29 @@ html.preview, html.preview body {
 #greeting { font-size: 64px; margin-bottom: 18px; }
 .clock .info-row { margin-top: 20px; }
 .no-inputs .dock { top: 430px; bottom: 128px; }
+
+/* =====================================================================================
+ * Spaziatura del pannello: margini uguali sopra, tra le righe e sotto.
+ * Il nome dell'app non occupa spazio: compare nello spazio tra le righe (o nel margine
+ * sotto) solo per la tessera selezionata.
+ *   altezza = 48 + 223 + 48 + 146 + 48 = 513
+ * ===================================================================================== */
+
+.no-inputs .dock { top: 434px; bottom: 133px; }
+
+.dock-clip { justify-content: center; padding: 0; }
+
+.dock .app { position: relative; }
+
+.dock .app .label,
+.row-small .app .label {
+    position: absolute;
+    left: -20px;
+    right: -20px;
+    top: 100%;
+    margin-top: 10px;
+    font-size: 22px;
+    line-height: 28px;
+}
+
+.row-small { margin-top: 48px; }
