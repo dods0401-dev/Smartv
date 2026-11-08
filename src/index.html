@@ -21,6 +21,11 @@
                 <div id="greeting"></div>
                 <div id="time"><span id="time-main"></span><span id="time-suffix"></span></div>
                 <div id="date"></div>
+                <!-- Informazioni (info.js): programma in onda e partite, come etichette sotto l'ora. -->
+                <div id="info" class="info-row">
+                    <span id="info-tv" class="info-item"></span>
+                    <span id="info-sport" class="info-item"></span>
+                </div>
             </header>
             <div id="topbar" class="topbar">
                 <div id="wx-pill" class="pill hidden">
@@ -41,11 +46,6 @@
             <div id="dock" class="dock">
                 <div class="glass"><canvas class="glass-bg" width="96" height="54"></canvas></div>
                 <div class="dock-clip">
-                    <!-- Informazioni nel vetro (info.js): programma in onda e partite. -->
-                    <div id="info" class="info-row">
-                        <span id="info-tv" class="info-item"></span>
-                        <span id="info-sport" class="info-item"></span>
-                    </div>
                     <div id="apps-section" class="shelf">
                         <h2>Le tue app</h2>
                         <!-- Prima riga: le preferite, grandi. Seconda: le altre, piccole. -->
@@ -112,7 +112,7 @@
         </section>
 
         <section id="advanced" class="view page hidden">
-            <header class="page-head"><h1>Altro</h1><div>Versione 1.2.1</div></header>
+            <header class="page-head"><h1>Altro</h1><div>Versione 1.3.0</div></header>
             <ul class="settings-list two-col"></ul>
         </section>
 

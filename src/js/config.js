@@ -28,7 +28,7 @@ window.LAUNCHER_CONFIG = {
         { match: 'disney', label: 'Disney+', brand: 'disneyplus' },
         { match: 'apple ?tv|aria-video', label: 'Apple TV', brand: 'appletv' },
         { match: 'raiplay|rai ?play', label: 'RaiPlay', brand: 'raiplay' },
-        { match: 'youtube|cobalt-yt', label: 'YouTube', brand: 'youtube', tvIcon: false },
+        { match: 'youtube|cobalt-yt', label: 'YouTube', brand: 'youtube' },
         { match: 'spotify', label: 'Spotify', brand: 'spotify' }
     ],
 

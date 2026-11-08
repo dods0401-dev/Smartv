@@ -171,8 +171,13 @@
         // Prima l'icona della TV (è quella vera, la stessa del menu Samsung); per le app della Home,
         // se la TV non ce l'ha, quella cercata su internet. `tvIcon: false` in config.js salta
         // l'icona della TV per un'app (es. YouTube, la cui icona sulla TV è quella di TizenTube).
+        // Il marchio (brands.js) può dire da dove prendere l'icona: `icon: 'logo'` solo il logo
+        // disegnato (quando l'icona della TV è quadrata e nella tessera larga sta male), `icon: 'web'`
+        // salta l'icona della TV (YouTube: sulla TV è quella di TizenTube).
+        var source = (item.brand && item.brand.icon) || (item.tvIcon === false ? 'web' : 'tv');
+        if (source === 'logo') return;
         var web = item.onHome ? function () { fromWeb(none); } : none;
-        if (item.tvIcon === false) web();
+        if (source === 'web') web();
         else fromTv(web);
     }
 

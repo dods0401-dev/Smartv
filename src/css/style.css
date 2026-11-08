@@ -1544,3 +1544,36 @@ html.preview, html.preview body {
 .no-inputs .dock { bottom: 150px; }
 .info-row { margin-bottom: 24px; }
 .dock-clip { padding-top: 20px; }
+
+/* Informazioni come etichette scure sotto ora e data (non più dentro il pannello). */
+.clock .info-row {
+    display: none;
+    height: auto;
+    margin: 24px 0 0;
+    padding: 0;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: 24px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: visible;
+    text-shadow: none;
+}
+
+.has-info .clock .info-row { display: flex; }
+
+.clock .info-item {
+    padding: 9px 20px;
+    border-radius: 24px;
+    background: rgba(8, 10, 18, 0.5);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.clock .info-item:empty { display: none; }
+.clock .info-item + .info-item::before { display: none; }
+
+/* Il pannello ora contiene solo le app: contenuto centrato, pannello più basso. */
+.dock-clip,
+#home:not(.has-info) .dock-clip { justify-content: center; padding-top: 0; }
+.no-inputs .dock { top: 530px; bottom: 120px; }
