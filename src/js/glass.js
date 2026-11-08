@@ -1,10 +1,10 @@
 /*
  * Vetro e movimento.
  *
- * Il vetro è finto di proposito: ogni sfondo ha una copia già sfocata (img/wallpapers/blur/),
- * e ogni pannello di vetro mostra quella copia spostata in modo da coincidere con lo sfondo vero
- * dietro di lui. La TV non calcola nessuna sfocatura (backdrop-filter non è mai stato misurato
- * su questo hardware), disegna solo un'immagine.
+ * Il vetro è finto di proposito: ogni pannello mostra una copia sfocata dello sfondo (vedi
+ * setWallpaper), spostata in modo da coincidere con lo sfondo vero dietro di lui. La TV non
+ * applica nessuna sfocatura in tempo reale (backdrop-filter non è mai stato misurato su questo
+ * hardware): disegna solo un'immagine.
  *
  * Lo sfondo "respira" con una lenta animazione di zoom; le copie sfocate fanno la stessa
  * animazione con lo stesso ritardo, quindi restano allineate anche dopo che la Home è stata
@@ -15,7 +15,6 @@
     'use strict';
 
     var t0 = Date.now();
-    var DEFAULT_BLUR = 'img/bg-blur.jpg';
 
     function stage() { return document.getElementById('stage'); }
 
@@ -48,10 +47,30 @@
         });
     }
 
-    function setWallpaper(w) {
-        var path = (w && w.blur) || DEFAULT_BLUR;
-        var url = 'url("' + new URL(path, location.href).href + '")';
-        document.documentElement.style.setProperty('--wall-blur', url);
+    /*
+     * La copia sfocata si ottiene rimpicciolendo la foto a 96x54 punti: allargata di nuovo a tutto
+     * schermo dal browser diventa una sfocatura morbida. Costa un disegno piccolo per ogni cambio di
+     * sfondo, e funziona anche con le foto scaricate da internet (una tela "contaminata" da
+     * un'immagine di un altro sito si può mostrare, solo non leggere).
+     */
+    function canvases() {
+        return layers().concat([document.getElementById('bg-blur')]).filter(Boolean);
+    }
+
+    function setWallpaper(img) {
+        var list = canvases();
+        if (!list.length || !img) return;
+        var first = list[0];
+        var ctx = first.getContext('2d');
+        try { ctx.filter = 'blur(1.5px)'; } catch (e) { /* senza filtro va bene lo stesso */ }
+        ctx.drawImage(img, -4, -4, first.width + 8, first.height + 8);
+        try { ctx.filter = 'none'; } catch (e) { /* idem */ }
+        // Un velo di luce: è quello che fa leggere il pannello come vetro.
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
+        ctx.fillRect(0, 0, first.width, first.height);
+        list.slice(1).forEach(function (c) {
+            c.getContext('2d').drawImage(first, 0, 0, c.width, c.height);
+        });
     }
 
     /*
@@ -60,6 +79,7 @@
      */
     function enter(full) {
         var home = document.getElementById('home');
+        if (full && window.Phrases) Phrases.fresh();
         home.classList.remove('enter', 'enter-soft');
         void home.offsetWidth;
         home.classList.add(full ? 'enter' : 'enter-soft');
@@ -80,7 +100,6 @@
     }
 
     function init() {
-        setWallpaper(null);
         if (window.Weather) Weather.onUpdate(renderWeather);
         renderWeather();
         window.addEventListener('resize', sync);

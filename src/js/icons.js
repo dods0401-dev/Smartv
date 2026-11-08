@@ -1,9 +1,12 @@
 /*
  * Icone originali delle app.
  *
- * Ordine: l'icona che fornisce la TV; se manca o non è leggibile, la TV la cerca su internet
- * (App Store, che ha le icone ufficiali in alta qualità) e si ricorda il risultato; se anche
- * questo fallisce resta il logo disegnato di brands.js.
+ * Per le app della Home: prima l'icona ufficiale cercata su internet (App Store, alta qualità e
+ * tutte nello stesso formato), ricordata sulla TV; se non si trova, l'icona che fornisce la TV;
+ * se manca anche quella, il logo disegnato di brands.js. Le altre app (Tutte le app) usano solo
+ * l'icona della TV, per non fare decine di ricerche.
+ *
+ * Impostazioni → Avanzate → Icone delle app svuota la memoria e dice da dove arrivano.
  *
  * In config.js un'app può avere `icon: 'https://…'` per forzare un'immagine, oppure
  * `iconSearch: 'nome'` se la ricerca con il suo nome trova l'app sbagliata.
@@ -16,6 +19,7 @@
     var RETRY_MS = 6 * 60 * 60 * 1000;   // dopo un fallimento riprova tra 6 ore
     var cache = load();
     var pending = {};
+    var stats = { web: 0, tv: 0, none: 0 };
 
     function load() {
         try {
@@ -133,7 +137,8 @@
         img.src = src;
     }
 
-    function apply(tile, img) {
+    function apply(tile, img, from) {
+        stats[from]++;
         tile.classList.add('real-icon');
         tile.appendChild(img);
         var color = edgeColor(img);
@@ -142,26 +147,39 @@
 
     // item: { iconPath, icon, iconSearch, label, onHome }
     function attach(tile, item) {
-        function internet() {
-            if (!item.onHome) return;
+        function none() {
+            if (item.onHome) stats.none++;
+        }
+        function fromTv() {
+            if (!item.iconPath) return none();
+            var src = item.iconPath.charAt(0) === '/' ? 'file://' + item.iconPath : item.iconPath;
+            loadImage(src, false, function (img) { apply(tile, img, 'tv'); }, none);
+        }
+        function fromWeb(fail) {
             if (item.icon) {
-                loadImage(item.icon, true, function (img) { apply(tile, img); }, function () {});
+                loadImage(item.icon, true, function (img) { apply(tile, img, 'web'); }, fail);
                 return;
             }
             lookup(item.iconSearch || item.label, function (url) {
-                if (url) loadImage(url, true, function (img) { apply(tile, img); }, function () {});
+                if (url) loadImage(url, true, function (img) { apply(tile, img, 'web'); }, fail);
+                else fail();
             });
         }
-        if (item.iconPath) {
-            var src = item.iconPath.charAt(0) === '/' ? 'file://' + item.iconPath : item.iconPath;
-            loadImage(src, false, function (img) { apply(tile, img); }, internet);
-        } else {
-            internet();
-        }
+        if (item.onHome) fromWeb(fromTv);
+        else if (item.iconPath) fromTv();
+    }
+
+    // Svuota la memoria delle ricerche e azzera il conteggio (per il controllo in Avanzate).
+    function reset() {
+        cache = {};
+        store();
+        stats = { web: 0, tv: 0, none: 0 };
     }
 
     window.Icons = {
         attach: attach,
-        lookup: lookup
+        lookup: lookup,
+        reset: reset,
+        stats: function () { return stats; }
     };
 })();

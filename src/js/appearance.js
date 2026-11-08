@@ -16,14 +16,6 @@
         { key: 'it-IT', label: 'Italiano' }
     ];
 
-    // Stili della Home: ognuno è una classe su #stage, definita in fondo a style.css.
-    var STYLES = [
-        { key: 'vetro', label: 'Vetro' },
-        { key: 'cinema', label: 'Cinema' },
-        { key: 'icone', label: 'Icone' },
-        { key: 'chiaro', label: 'Chiaro' }
-    ];
-
     var FALLBACK = ', "SamsungOne", "Helvetica Neue", Arial, sans-serif';
 
     function prefs() { return Prefs.get().appearance; }
@@ -52,20 +44,6 @@
         }
     }
 
-    // Saluto sopra l'orologio, solo in italiano (le altre lingue non lo mostrano).
-    function greeting(d) {
-        if (prefs().locale !== 'it-IT') return '';
-        var h = d.getHours();
-        if (h >= 5 && h < 13) return 'Buongiorno';
-        if (h >= 13 && h < 18) return 'Buon pomeriggio';
-        return 'Buonasera';
-    }
-
-    // Lo stile viene da config.js e non si cambia dal telecomando.
-    function style() {
-        return (window.LAUNCHER_CONFIG || {}).style || 'cinema';
-    }
-
     function apply() {
         var p = prefs();
         document.documentElement.style.setProperty('--font', font(p.font).family + FALLBACK);
@@ -74,19 +52,14 @@
         home.classList.toggle('names-never', p.names === 'never');
         home.classList.toggle('no-date', !p.showDate);
         document.documentElement.classList.toggle('no-motion', p.motion === 'off');
-        var stage = document.getElementById('stage');
-        STYLES.forEach(function (s) { stage.classList.toggle('style-' + s.key, style() === s.key); });
     }
 
     window.Appearance = {
         FONTS: FONTS,
         LOCALES: LOCALES,
-        STYLES: STYLES,
-        style: style,
         font: font,
         time: time,
         date: date,
-        greeting: greeting,
         apply: apply
     };
 })();

@@ -323,7 +323,7 @@
         $('time-main').textContent = t.time;
         $('time-suffix').textContent = t.suffix;
         $('date').textContent = Appearance.date(d);
-        $('greeting').textContent = Appearance.greeting(d);
+        $('greeting').textContent = Phrases.text(d);
     }
 
     // The TV takes ~4 s to list its ~450 apps, so Home is drawn from the last list we saw

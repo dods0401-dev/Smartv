@@ -105,9 +105,9 @@
     }
 
     function styleSummary() {
-        var f = Prefs.get().fun;
-        var src = Fun.SOURCES.find(function (s) { return s.key === f.source; }) || Fun.SOURCES[0];
-        return 'Foto: ' + src.label.toLowerCase();
+        var e = Prefs.get().phrases.every;
+        var opt = Phrases.EVERY.find(function (o) { return o.key === e; }) || Phrases.EVERY[1];
+        return 'Frasi: ' + opt.label.toLowerCase();
     }
 
     function overviewEntries() {
@@ -207,11 +207,10 @@
         ];
     }
 
-    // Pagina "Home": foto divertenti e movimento. `group` dice in quale preferenza finisce la scelta.
+    // Pagina "Home": frasi e movimento. `group` dice in quale preferenza finisce la scelta.
     function styleBlocks() {
         return [
-            { title: 'Foto divertenti', group: 'fun', key: 'source', options: Fun.SOURCES.map(function (s) { return [s.key, s.label]; }) },
-            { title: 'Cambia foto ogni', group: 'fun', key: 'every', options: Fun.EVERY.map(function (s) { return [s.key, s.label]; }) },
+            { title: 'Cambia frase ogni', group: 'phrases', key: 'every', options: Phrases.EVERY.map(function (s) { return [s.key, s.label]; }) },
             { title: 'Movimento', key: 'motion', options: [['on', 'Attivo'], ['off', 'Ridotto (TV più veloce)']] }
         ];
     }
@@ -241,7 +240,6 @@
         Prefs.get()[item.group || 'appearance'][item.key] = item.value;
         Prefs.save();
         Appearance.apply();
-        if (item.group === 'fun') Fun.restart();
         Home.updateClock();
         renderAppearance();
         UI.refresh();
@@ -654,6 +652,17 @@
                 }
             }
         ];
+        entries.push({
+            label: 'Icone delle app', value: 'Ricarica e controlla', run: function () {
+                Icons.reset();
+                Home.render();
+                UI.toast('Cerco le icone…');
+                setTimeout(function () {
+                    var s = Icons.stats();
+                    UI.toast('Icone: ' + s.web + ' da internet, ' + s.tv + ' dalla TV, ' + s.none + ' non trovate');
+                }, 10000);
+            }
+        });
         if (window.LAUNCHER_CONFIG.devLogUrl) {
             entries.push({
                 label: 'Esporta impostazioni', value: 'Le invia al log del computer', run: function () {

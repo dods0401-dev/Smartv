@@ -1,211 +1,74 @@
-/* Foto: Unsplash License. Sfondi astratti e chiari: generati per questo progetto.
-   `blur`: copia sfocata per i pannelli di vetro. `abstract`: entra nella rotazione della Home.
-   `light`: sfondo chiaro (stile Chiaro). */
+/* Foto incluse nell'app (Unsplash License), usate quando la TV non riesce a scaricare le foto
+   del giorno da internet (vedi wallpaper.js), e nel menu Sfondo. */
 window.WALLPAPERS = [
-    {
-        "key": "seta",
-        "title": "Seta",
-        "file": "img/wallpapers/seta.jpg",
-        "thumb": "img/wallpapers/thumbs/seta.jpg",
-        "credit": "",
-        "blur": "img/wallpapers/blur/seta.jpg",
-        "abstract": true
-    },
-    {
-        "key": "aurora-liquida",
-        "title": "Aurora liquida",
-        "file": "img/wallpapers/aurora-liquida.jpg",
-        "thumb": "img/wallpapers/thumbs/aurora-liquida.jpg",
-        "credit": "",
-        "blur": "img/wallpapers/blur/aurora-liquida.jpg",
-        "abstract": true
-    },
-    {
-        "key": "magma",
-        "title": "Magma",
-        "file": "img/wallpapers/magma.jpg",
-        "thumb": "img/wallpapers/thumbs/magma.jpg",
-        "credit": "",
-        "blur": "img/wallpapers/blur/magma.jpg",
-        "abstract": true
-    },
-    {
-        "key": "laguna",
-        "title": "Laguna",
-        "file": "img/wallpapers/laguna.jpg",
-        "thumb": "img/wallpapers/thumbs/laguna.jpg",
-        "credit": "",
-        "blur": "img/wallpapers/blur/laguna.jpg",
-        "abstract": true
-    },
-    {
-        "key": "ametista",
-        "title": "Ametista",
-        "file": "img/wallpapers/ametista.jpg",
-        "thumb": "img/wallpapers/thumbs/ametista.jpg",
-        "credit": "",
-        "blur": "img/wallpapers/blur/ametista.jpg",
-        "abstract": true
-    },
-    {
-        "key": "oro",
-        "title": "Oro",
-        "file": "img/wallpapers/oro.jpg",
-        "thumb": "img/wallpapers/thumbs/oro.jpg",
-        "credit": "",
-        "blur": "img/wallpapers/blur/oro.jpg",
-        "abstract": true
-    },
-    {
-        "key": "nebula",
-        "title": "Nebulosa",
-        "file": "img/wallpapers/nebula.jpg",
-        "thumb": "img/wallpapers/thumbs/nebula.jpg",
-        "credit": "",
-        "blur": "img/wallpapers/blur/nebula.jpg",
-        "abstract": true
-    },
-    {
-        "key": "neon",
-        "title": "Neon",
-        "file": "img/wallpapers/neon.jpg",
-        "thumb": "img/wallpapers/thumbs/neon.jpg",
-        "credit": "",
-        "blur": "img/wallpapers/blur/neon.jpg",
-        "abstract": true
-    },
-    {
-        "key": "ghiaccio",
-        "title": "Aurora boreale glaciale",
-        "file": "img/wallpapers/ghiaccio.jpg",
-        "thumb": "img/wallpapers/thumbs/ghiaccio.jpg",
-        "credit": "",
-        "blur": "img/wallpapers/blur/ghiaccio.jpg",
-        "abstract": true
-    },
-    {
-        "key": "tramonto",
-        "title": "Tramonto liquido",
-        "file": "img/wallpapers/tramonto.jpg",
-        "thumb": "img/wallpapers/thumbs/tramonto.jpg",
-        "credit": "",
-        "blur": "img/wallpapers/blur/tramonto.jpg",
-        "abstract": true
-    },
-    {
-        "key": "smeraldo",
-        "title": "Smeraldo",
-        "file": "img/wallpapers/smeraldo.jpg",
-        "thumb": "img/wallpapers/thumbs/smeraldo.jpg",
-        "credit": "",
-        "blur": "img/wallpapers/blur/smeraldo.jpg",
-        "abstract": true
-    },
-    {
-        "key": "plasma",
-        "title": "Plasma",
-        "file": "img/wallpapers/plasma.jpg",
-        "thumb": "img/wallpapers/thumbs/plasma.jpg",
-        "credit": "",
-        "blur": "img/wallpapers/blur/plasma.jpg",
-        "abstract": true
-    },
-    {
-        "key": "perla",
-        "title": "Perla",
-        "file": "img/wallpapers/perla.jpg",
-        "thumb": "img/wallpapers/thumbs/perla.jpg",
-        "credit": "",
-        "blur": "img/wallpapers/blur/perla.jpg",
-        "light": true
-    },
-    {
-        "key": "alba",
-        "title": "Alba",
-        "file": "img/wallpapers/alba.jpg",
-        "thumb": "img/wallpapers/thumbs/alba.jpg",
-        "credit": "",
-        "blur": "img/wallpapers/blur/alba.jpg",
-        "light": true
-    },
     {
         "key": "coast",
         "title": "Borgo sul mare",
         "file": "img/wallpapers/coast.jpg",
         "thumb": "img/wallpapers/thumbs/coast.jpg",
-        "credit": "Anders Jilden on Unsplash",
-        "blur": "img/wallpapers/blur/coast.jpg"
+        "credit": "Anders Jilden on Unsplash"
     },
     {
         "key": "valley-snow",
         "title": "Valle innevata",
         "file": "img/wallpapers/valley-snow.jpg",
         "thumb": "img/wallpapers/thumbs/valley-snow.jpg",
-        "credit": "Jms on Unsplash",
-        "blur": "img/wallpapers/blur/valley-snow.jpg"
+        "credit": "Jms on Unsplash"
     },
     {
         "key": "forest",
         "title": "Sentiero nel bosco",
         "file": "img/wallpapers/forest.jpg",
         "thumb": "img/wallpapers/thumbs/forest.jpg",
-        "credit": "Johannes Plenio on Unsplash",
-        "blur": "img/wallpapers/blur/forest.jpg"
+        "credit": "Johannes Plenio on Unsplash"
     },
     {
         "key": "aurora",
         "title": "Aurora boreale",
         "file": "img/wallpapers/aurora.jpg",
         "thumb": "img/wallpapers/thumbs/aurora.jpg",
-        "credit": "Jonatan Pie on Unsplash",
-        "blur": "img/wallpapers/blur/aurora.jpg"
+        "credit": "Jonatan Pie on Unsplash"
     },
     {
         "key": "night-sky",
         "title": "Cielo notturno",
         "file": "img/wallpapers/night-sky.jpg",
         "thumb": "img/wallpapers/thumbs/night-sky.jpg",
-        "credit": "Jonatan Pie on Unsplash",
-        "blur": "img/wallpapers/blur/night-sky.jpg"
+        "credit": "Jonatan Pie on Unsplash"
     },
     {
         "key": "earth",
         "title": "La Terra di notte",
         "file": "img/wallpapers/earth.jpg",
         "thumb": "img/wallpapers/thumbs/earth.jpg",
-        "credit": "Nasa on Unsplash",
-        "blur": "img/wallpapers/blur/earth.jpg"
+        "credit": "Nasa on Unsplash"
     },
     {
         "key": "milky-way",
         "title": "Via Lattea",
         "file": "img/wallpapers/milky-way.jpg",
         "thumb": "img/wallpapers/thumbs/milky-way.jpg",
-        "credit": "Stefan Stefancik on Unsplash",
-        "blur": "img/wallpapers/blur/milky-way.jpg"
+        "credit": "Stefan Stefancik on Unsplash"
     },
     {
         "key": "kyoto",
         "title": "Kyoto",
         "file": "img/wallpapers/kyoto.jpg",
         "thumb": "img/wallpapers/thumbs/kyoto.jpg",
-        "credit": "Su San Lee on Unsplash",
-        "blur": "img/wallpapers/blur/kyoto.jpg"
+        "credit": "Su San Lee on Unsplash"
     },
     {
         "key": "hills",
         "title": "Colline dorate",
         "file": "img/wallpapers/hills.jpg",
         "thumb": "img/wallpapers/thumbs/hills.jpg",
-        "credit": "Urban Vintage on Unsplash",
-        "blur": "img/wallpapers/blur/hills.jpg"
+        "credit": "Urban Vintage on Unsplash"
     },
     {
         "key": "waterfall",
         "title": "Cascata",
         "file": "img/wallpapers/waterfall.jpg",
         "thumb": "img/wallpapers/thumbs/waterfall.jpg",
-        "credit": "Wil Stewart on Unsplash",
-        "blur": "img/wallpapers/blur/waterfall.jpg"
+        "credit": "Wil Stewart on Unsplash"
     }
 ];

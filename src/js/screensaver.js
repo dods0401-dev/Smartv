@@ -89,7 +89,7 @@
     // ---------- Photos
 
     function rotating() {
-        return Prefs.get().wallpaper.mode === 'rotate' && Wallpaper.list().length > 1;
+        return Prefs.get().wallpaper.mode === 'rotate' && Wallpaper.pool().length > 1;
     }
 
     /*
@@ -100,7 +100,7 @@
     function photoAt(i) {
         var p = Prefs.get().wallpaper;
         if (p.mode === 'off') return null;
-        var list = Wallpaper.list();
+        var list = Wallpaper.pool();
         if (!list.length) return null;
         if (p.mode !== 'rotate') return Wallpaper.find(p.photo);
         return list[((i % list.length) + list.length) % list.length];
@@ -109,7 +109,7 @@
     // Continue from whatever is already on Home, so opening the screen saver is not a jump cut.
     function startIndex() {
         var key = Prefs.get().wallpaper.photo;
-        var i = Wallpaper.list().findIndex(function (w) { return w.key === key; });
+        var i = Wallpaper.pool().findIndex(function (w) { return w.key === key; });
         return i < 0 ? 0 : i;
     }
 

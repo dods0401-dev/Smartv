@@ -8,16 +8,13 @@
 </head>
 <body>
     <div id="stage">
-        <div id="bg"></div>
-        <div id="bg-next"></div>
+        <!-- Sfondo: tele su cui wallpaper.js disegna foto e velo scuro una volta per cambio. -->
+        <canvas id="bg" width="1920" height="1080"></canvas>
+        <canvas id="bg-next" width="1920" height="1080"></canvas>
+        <!-- Sfondo sfocato dietro le pagine delle Impostazioni (glass.js). -->
+        <canvas id="bg-blur" width="96" height="54"></canvas>
 
         <section id="home" class="view">
-            <!-- Foto divertenti (fun.js): due livelli per la dissolvenza tra una foto e l'altra. -->
-            <div id="fun" class="fun">
-                <div id="fun-a" class="fun-photo"></div>
-                <div id="fun-b" class="fun-photo"></div>
-                <div id="fun-cap" class="fun-cap"></div>
-            </div>
             <header class="clock">
                 <div id="greeting"></div>
                 <div id="time"><span id="time-main"></span><span id="time-suffix"></span></div>
@@ -25,7 +22,7 @@
             </header>
             <div id="topbar" class="topbar">
                 <div id="wx-pill" class="pill hidden">
-                    <div class="glass"><div class="glass-bg"></div></div>
+                    <div class="glass"><canvas class="glass-bg" width="96" height="54"></canvas></div>
                     <span id="wx-icon" class="wx-icon"></span>
                     <span id="wx-temp" class="wx-temp"></span>
                     <span id="wx-place" class="wx-place"></span>
@@ -40,7 +37,7 @@
             <!-- Vetro: .glass-bg mostra la copia sfocata dello sfondo allineata a quello vero, così
                  la TV non calcola nessuna sfocatura. .dock-clip ritaglia le righe senza angoli arrotondati. -->
             <div id="dock" class="dock">
-                <div class="glass"><div class="glass-bg"></div></div>
+                <div class="glass"><canvas class="glass-bg" width="96" height="54"></canvas></div>
                 <div class="dock-clip">
                     <div id="apps-section" class="shelf">
                         <h2>Le tue app</h2>
@@ -201,7 +198,7 @@
     <script src="js/appearance.js"></script>
     <script src="js/glass.js"></script>
     <script src="js/icons.js"></script>
-    <script src="js/fun.js"></script>
+    <script src="js/phrases.js"></script>
     <script src="js/weather.js"></script>
     <script src="js/sound.js"></script>
     <script src="js/ui.js"></script>
