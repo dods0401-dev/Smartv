@@ -111,6 +111,16 @@ h1, h2 {
     left: var(--edge);
 }
 
+#greeting {
+    margin-bottom: 8px;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+}
+
+#greeting:empty { display: none; }
+
 #time {
     font-size: 132px;
     font-weight: 300;
@@ -146,6 +156,10 @@ h1, h2 {
 
 #apps-section { top: 350px; }
 #inputs-section { top: 690px; }
+
+/* Senza dispositivi HDMI la riga delle app scende nel terzo inferiore, come nelle home delle TV,
+   invece di lasciare mezza schermata vuota sotto. */
+.no-inputs #apps-section { top: 600px; }
 
 .shelf h2 {
     margin-bottom: 26px;
@@ -225,7 +239,7 @@ h1, h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 60px;
+    font-size: 50px;
     font-weight: 800;
     letter-spacing: -1px;
 }

@@ -17,6 +17,11 @@ window.BRANDS = [
     { key: 'plex', match: /plex/i, mark: 'plex', bg: '#1f1f1f', fg: '#e5a00d' },
     { key: 'twitch', match: /twitch/i, mark: 'twitch', bg: '#9146ff', fg: '#fff' },
     { key: 'tf1', match: /tf1/i, text: 'TF1+', bg: 'linear-gradient(135deg,#071a4d,#1d4ed8)', fg: '#fff' },
+    // Italia: loghi tipografici (nessun marchio ufficiale incluso nel repository)
+    { key: 'raiplay', match: /raiplay|rai ?play/i, text: 'RaiPlay', bg: 'linear-gradient(135deg,#00205b,#0a5bd3)', fg: '#fff' },
+    { key: 'mediaset', match: /mediaset|infinity/i, text: 'Infinity', bg: 'linear-gradient(135deg,#0b1e3f,#1b4fa0)', fg: '#fff' },
+    { key: 'now', match: /(^|[^a-z])now([^a-z]|$)|nowtv/i, text: 'NOW', bg: '#0b0b0b', fg: '#21e6c1' },
+    { key: 'tvplus', match: /tv ?plus|tvplus/i, text: 'TV Plus', bg: 'linear-gradient(135deg,#1428a0,#3d5afe)', fg: '#fff' },
     { key: 'crunchyroll', match: /crunchyroll/i, mark: 'crunchyroll', bg: '#f47521', fg: '#fff' },
 
     // Consoles (used by inputs in config.js)

@@ -28,6 +28,10 @@
         app('DaznApp000.DAZN', 'DAZN'),
         app('RtveTvApp0.RTVEPlay', 'RTVE Play'),
         app('Atresplay0.atresplayer', 'atresplayer'),
+        app('RaiPlayTv0.RaiPlay', 'RaiPlay'),
+        app('MediasetIn.Infinity', 'Mediaset Infinity'),
+        app('NowTvItal0.NOW', 'NOW'),
+        app('org.tizen.tvplus', 'Samsung TV Plus'),
         app('org.tizen.browser', 'Internet'),
         // Noise that the consumer filter should hide
         app('com.samsung.tv.ep-dataservice-app', 'ep-dataservice-app'),

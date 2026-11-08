@@ -101,7 +101,7 @@
             '<rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/>' +
             '<rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg>';
         wrap.appendChild(tile);
-        wrap.appendChild(el('div', 'label', 'All apps'));
+        wrap.appendChild(el('div', 'label', 'Tutte le app'));
         wrap._item = { kind: 'all' };
         return wrap;
     }
@@ -178,6 +178,7 @@
             if (!input.hidden) row2.appendChild(inputTile(input));
         });
         $('inputs-section').classList.toggle('hidden', !row2.children.length);
+        $('home').classList.toggle('no-inputs', !row2.children.length);
         applyInputStatus();
         if (UI.isVisible('home')) UI.refresh();
     }
@@ -204,7 +205,7 @@
         UI.resetScroll(grid);
         var items = Apps.allSorted(state.apps, state.showEverything);
         items.forEach(function (item) { grid.appendChild(appTile(item)); });
-        $('all-count').textContent = items.length + ' apps';
+        $('all-count').textContent = items.length + ' app';
     }
 
     function renderLab() {
@@ -251,18 +252,18 @@
 
     function launchApp(item) {
         runLogged('Launch ' + item.id, Apps.launch(item.id)).catch(function (err) {
-            UI.toast('Could not open ' + item.label + ': ' + DevLog.errorText(err));
+            UI.toast('Impossibile aprire ' + item.label + ': ' + DevLog.errorText(err));
         });
     }
 
     function openInput(item, method) {
         method = method || item.method || cfg.inputMethod;
-        UI.toast('Switching to ' + item.label + '…');
+        UI.toast('Passo a ' + item.label + '…');
         runLogged('Input HDMI ' + item.hdmi + ' via ' + method, Inputs.open(item.hdmi, method)).then(function (result) {
             log('Current source now: ' + Inputs.describeSource(Inputs.current()));
             if (result === 'inapp') enterTvMode();
         }).catch(function (err) {
-            UI.toast('Could not switch to ' + item.label + ': ' + DevLog.errorText(err));
+            UI.toast('Impossibile passare a ' + item.label + ': ' + DevLog.errorText(err));
         });
     }
 
@@ -328,6 +329,7 @@
         $('time-main').textContent = t.time;
         $('time-suffix').textContent = t.suffix;
         $('date').textContent = Appearance.date(d);
+        $('greeting').textContent = Appearance.greeting(d);
     }
 
     // The TV takes ~4 s to list its ~450 apps, so Home is drawn from the last list we saw
@@ -408,7 +410,7 @@
         UI.register('home', {
             el: $('home'),
             startRow: 1,
-            hints: [['OK', 'Open'], ['▲', 'Settings']],
+            hints: [['OK', 'Apri'], ['▲', 'Impostazioni']],
             rows: function () {
                 return [[$('gear')], UI.children($('apps-row')), UI.children($('inputs-row'))];
             },
@@ -428,7 +430,7 @@
             rows: function () { return UI.chunk(UI.children($('all-grid')), GRID_COLS); },
             onShow: renderAll,
             activate: launchApp,
-            hints: [['OK', 'Open'], ['Back', 'Home']]
+            hints: [['OK', 'Apri'], ['Back', 'Home']]
         });
 
         UI.register('lab', {

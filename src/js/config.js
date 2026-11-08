@@ -12,22 +12,31 @@
  * inputs: HDMI ports shown in the second row. Set `hdmi` to the port each device is plugged into.
  */
 window.LAUNCHER_CONFIG = {
+    /*
+     * Selezione per una TV italiana (Samsung UE55U8000F). Si usa `match` invece di `id` perché gli
+     * id esatti cambiano da TV a TV: appena la launcher gira sulla TV, la schermata "Tutte le app"
+     * mostra l'id dell'app selezionata e conviene sostituire qui `match` con `id`.
+     * Le app non installate vengono saltate.
+     */
     apps: [
-        { id: 'xvvl3S1TT1.TizenTubeStandalone', label: 'YouTube', brand: 'youtube' },
-        { id: 'rJeHak5zRg.Spotify', label: 'Spotify' },
-        { id: 'Jz7aUrV2Q4.Twitch', label: 'Twitch' },
-        { id: 'E0P3lRI4H7.MYTF1', label: 'TF1+' },
-        { id: 'org.tizen.netflix-app', label: 'Netflix' },
-        { id: 'org.tizen.primevideo', label: 'Prime Video' },
-        { id: 'MCmYXNxgcu.DisneyPlus', label: 'Disney+' },
-        { id: 'com.samsung.tv.aria-video', label: 'Apple TV' }
+        { match: 'netflix', label: 'Netflix', brand: 'netflix' },
+        { match: 'prime ?video', label: 'Prime Video', brand: 'primevideo' },
+        { match: 'disney', label: 'Disney+', brand: 'disneyplus' },
+        { match: 'raiplay', label: 'RaiPlay', brand: 'raiplay' },
+        { match: 'mediaset|infinity', label: 'Mediaset Infinity', brand: 'mediaset' },
+        { match: 'dazn', label: 'DAZN', brand: 'dazn' },
+        { match: '(^|[^a-z])now([^a-z]|$)|nowtv', label: 'NOW', brand: 'now' },
+        { match: 'youtube|cobalt-yt', label: 'YouTube', brand: 'youtube' },
+        { match: 'spotify', label: 'Spotify', brand: 'spotify' },
+        { match: 'tv ?plus|tvplus', label: 'Samsung TV Plus', brand: 'tvplus' }
     ],
 
-    inputs: [
-        { hdmi: 1, label: 'Nintendo Switch 2', brand: 'switch' },
-        { hdmi: 2, label: 'PlayStation 5', brand: 'playstation' },
-        { hdmi: 4, label: 'Xbox Series X', brand: 'xbox' }
-    ],
+    /*
+     * Dispositivi collegati alle porte HDMI (la U8000F ne ha 3). Vuoto finché non sappiamo cosa
+     * c'è collegato: la riga resta nascosta. Si possono aggiungere anche da Impostazioni → Consoles.
+     * Esempio: { hdmi: 1, label: 'PlayStation 5', brand: 'playstation' }
+     */
+    inputs: [],
 
     // How an input tile switches the TV. See README "HDMI inputs".
     //   'switch+viewer'  set the TV source, then open Samsung's TV viewer (default)
@@ -35,12 +44,12 @@ window.LAUNCHER_CONFIG = {
     //   'inapp'          show the input full screen inside the launcher (Back returns)
     inputMethod: 'switch+viewer',
 
-    locale: 'en-GB',
+    locale: 'it-IT',
 
     theme: {
         // Starting wallpaper (key from js/wallpapers.js), or null for none (plain gradient).
         // Changed from Settings → Background; the TV remembers the choice.
-        wallpaper: null
+        wallpaper: 'coast'
     },
 
     /*

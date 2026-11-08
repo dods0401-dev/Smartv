@@ -49,6 +49,10 @@
         'fr-FR': {
             clear: 'Dégagé', cloudy: 'Nuageux', fog: 'Brouillard', drizzle: 'Bruine',
             rain: 'Pluie', showers: 'Averses', snow: 'Neige', storm: 'Orage'
+        },
+        'it-IT': {
+            clear: 'Sereno', cloudy: 'Nuvoloso', fog: 'Nebbia', drizzle: 'Pioviggine',
+            rain: 'Pioggia', showers: 'Rovesci', snow: 'Neve', storm: 'Temporale'
         }
     };
 

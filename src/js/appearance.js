@@ -12,7 +12,8 @@
     var LOCALES = [
         { key: 'en-GB', label: 'English' },
         { key: 'es-ES', label: 'Español' },
-        { key: 'fr-FR', label: 'Français' }
+        { key: 'fr-FR', label: 'Français' },
+        { key: 'it-IT', label: 'Italiano' }
     ];
 
     var FALLBACK = ', "SamsungOne", "Helvetica Neue", Arial, sans-serif';
@@ -43,6 +44,15 @@
         }
     }
 
+    // Saluto sopra l'orologio, solo in italiano (le altre lingue non lo mostrano).
+    function greeting(d) {
+        if (prefs().locale !== 'it-IT') return '';
+        var h = d.getHours();
+        if (h >= 5 && h < 13) return 'Buongiorno';
+        if (h >= 13 && h < 18) return 'Buon pomeriggio';
+        return 'Buonasera';
+    }
+
     function apply() {
         var p = prefs();
         document.documentElement.style.setProperty('--font', font(p.font).family + FALLBACK);
@@ -58,6 +68,7 @@
         font: font,
         time: time,
         date: date,
+        greeting: greeting,
         apply: apply
     };
 })();
