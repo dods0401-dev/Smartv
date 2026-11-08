@@ -5,6 +5,7 @@
     var INTERVALS = [
         { key: 'open', label: 'A ogni apertura della Home', ms: 0 },
         { key: '30s', label: '30 s', ms: 30 * 1000 },
+        { key: '1m', label: '1 min', ms: 60 * 1000 },
         { key: '5m', label: '5 min', ms: 5 * 60 * 1000 },
         { key: '15m', label: '15 min', ms: 15 * 60 * 1000 },
         { key: '1h', label: '1 ora', ms: 60 * 60 * 1000 },
@@ -25,6 +26,28 @@
     }
 
     function bg() { return document.getElementById('bg'); }
+    function bgNext() { return document.getElementById('bg-next'); }
+
+    /*
+     * Dissolvenza: la nuova immagine compare sopra la vecchia, poi diventa lo sfondo vero e il
+     * livello sopra si svuota. Solo opacità, quindi niente di costoso per la TV.
+     */
+    var fadeTimer = null;
+    function crossfade(url) {
+        var next = bgNext();
+        var reduced = document.documentElement.classList.contains('no-motion');
+        if (!next || reduced || !bg().style.backgroundImage) {
+            bg().style.backgroundImage = url;
+            return;
+        }
+        clearTimeout(fadeTimer);
+        next.style.backgroundImage = url;
+        next.classList.add('show');
+        fadeTimer = setTimeout(function () {
+            bg().style.backgroundImage = url;
+            next.classList.remove('show');
+        }, 1600);
+    }
 
     // The next image is decoded before it replaces the current one, so the screen never flashes empty.
     // No wallpaper falls back to the stylesheet's plain gradient (img/bg.jpg).
@@ -38,7 +61,7 @@
         var img = new Image();
         img.onload = function () {
             if (t !== token) return;
-            bg().style.backgroundImage = 'url("' + w.file + '")';
+            crossfade('url("' + w.file + '")');
             if (window.Glass) Glass.setWallpaper(w);
         };
         img.onerror = function () { DevLog.log('Wallpaper failed to load: ' + w.file); };
@@ -52,8 +75,8 @@
 
     // Rotazione solo tra sfondi adatti allo stile: chiari per Chiaro, scuri per gli altri.
     function suited() {
-        var light = Prefs.get().appearance.style === 'chiaro';
-        var l = list().filter(function (w) { return !!w.light === light; });
+        var light = Appearance.style() === 'chiaro';
+        var l = list().filter(function (w) { return light ? w.light : w.abstract; });
         return l.length ? l : list();
     }
 
@@ -94,25 +117,7 @@
         }, 5 * 1000);
     }
 
-    /*
-     * Lo stile Chiaro ha testo scuro e vuole uno sfondo chiaro; gli altri il contrario. Cambiando
-     * stile si passa a uno sfondo adatto solo se quello attuale non lo è.
-     */
-    function matchStyle(style) {
-        var p = Prefs.get().wallpaper;
-        var current = find(p.photo);
-        var wantLight = style === 'chiaro';
-        if (p.mode !== 'off' && current && !!current.light === wantLight) return;
-        var pick = list().find(function (w) { return !!w.light === wantLight; });
-        if (!pick) return;
-        p.photo = pick.key;
-        if (p.mode === 'off') p.mode = 'photo';
-        p.lastChange = Date.now();
-        apply();
-    }
-
     window.Wallpaper = {
-        matchStyle: matchStyle,
         INTERVALS: INTERVALS,
         list: list,
         find: find,

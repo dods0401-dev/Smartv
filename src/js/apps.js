@@ -102,7 +102,9 @@
             id: app.id,
             label: entry.label || shortName(app.name),
             brand: entry.brand ? findBrand(entry.brand) : findBrand(app),
-            iconPath: app.iconPath || ''
+            iconPath: app.iconPath || '',
+            icon: entry.icon || '',
+            iconSearch: entry.iconSearch || ''
         };
     }
 

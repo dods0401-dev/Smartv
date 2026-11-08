@@ -105,16 +105,16 @@
     }
 
     function styleSummary() {
-        var a = Prefs.get().appearance;
-        var style = Appearance.STYLES.find(function (s) { return s.key === a.style; }) || Appearance.STYLES[0];
-        return style.label + ' · ' + (a.icons === 'loghi' ? 'loghi' : 'icone originali');
+        var f = Prefs.get().fun;
+        var src = Fun.SOURCES.find(function (s) { return s.key === f.source; }) || Fun.SOURCES[0];
+        return 'Foto: ' + src.label.toLowerCase();
     }
 
     function overviewEntries() {
         var a = Prefs.get().appearance;
         var shown = Home.inputs().filter(function (i) { return !i.hidden; }).length;
         return [
-            { label: 'Stile', value: styleSummary(), run: function () { UI.show('style'); } },
+            { label: 'Home', value: styleSummary(), run: function () { UI.show('style'); } },
             { label: 'Sfondo', value: wallpaperSummary(), run: function () { UI.show('bg'); } },
             { label: 'App nella Home', value: Home.homeItems().length + ' app', run: function () { UI.show('homeapps'); } },
             { label: 'Dispositivi HDMI', value: shown + ' nella Home', run: function () { UI.show('consoles'); } },
@@ -207,10 +207,11 @@
         ];
     }
 
+    // Pagina "Home": foto divertenti e movimento. `group` dice in quale preferenza finisce la scelta.
     function styleBlocks() {
         return [
-            { title: 'Stile della Home', key: 'style', options: Appearance.STYLES.map(function (s) { return [s.key, s.label]; }) },
-            { title: 'Icone delle app', key: 'icons', options: [['tv', 'Originali della TV'], ['loghi', 'Loghi']] },
+            { title: 'Foto divertenti', group: 'fun', key: 'source', options: Fun.SOURCES.map(function (s) { return [s.key, s.label]; }) },
+            { title: 'Cambia foto ogni', group: 'fun', key: 'every', options: Fun.EVERY.map(function (s) { return [s.key, s.label]; }) },
             { title: 'Movimento', key: 'motion', options: [['on', 'Attivo'], ['off', 'Ridotto (TV più veloce)']] }
         ];
     }
@@ -219,15 +220,15 @@
     var chipPage = 'appearance';
 
     function renderAppearance() {
-        var p = Prefs.get().appearance;
         var body = $(chipPage + '-body');
         body.innerHTML = '';
         (chipPage === 'style' ? styleBlocks() : appearanceBlocks()).forEach(function (b) {
+            var p = Prefs.get()[b.group || 'appearance'];
             var block = el('div', 'setting-block');
             block.appendChild(el('h2', '', b.title));
             var chips = el('div', 'chips');
             b.options.forEach(function (o) {
-                var c = chip(o[1], p[b.key] === o[0], { key: b.key, value: o[0] });
+                var c = chip(o[1], p[b.key] === o[0], { group: b.group, key: b.key, value: o[0] });
                 if (o[2]) c.style.fontFamily = o[2];
                 chips.appendChild(c);
             });
@@ -237,12 +238,10 @@
     }
 
     function activateAppearance(item) {
-        Prefs.get().appearance[item.key] = item.value;
-        // Lo stile Chiaro ha bisogno di uno sfondo chiaro, gli altri di uno scuro.
-        if (item.key === 'style') Wallpaper.matchStyle(item.value);
+        Prefs.get()[item.group || 'appearance'][item.key] = item.value;
         Prefs.save();
         Appearance.apply();
-        if (item.key === 'icons' || item.key === 'style') Home.render();
+        if (item.group === 'fun') Fun.restart();
         Home.updateClock();
         renderAppearance();
         UI.refresh();

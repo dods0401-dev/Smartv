@@ -48,40 +48,8 @@
         return h;
     }
 
-    // Installed apps report a native path; it may or may not be readable from a web app.
-    function tryIcon(tile, mono, path) {
-        var img = new Image();
-        img.className = 'icon';
-        img.onload = function () {
-            mono.style.display = 'none';
-            tile.appendChild(img);
-        };
-        img.src = path.charAt(0) === '/' ? 'file://' + path : path;
-    }
-
-    /*
-     * Icona vera dell'app, quella che la TV stessa usa (Impostazioni → Aspetto → Icone).
-     * Il logo resta sotto finché l'immagine non è caricata, e resta lui se la TV non la fornisce
-     * o se il file non è leggibile da un'app web.
-     */
-    function tryRealIcon(tile, path) {
-        var img = new Image();
-        img.className = 'real';
-        img.onload = function () {
-            if (img.naturalWidth < 8) return;
-            tile.classList.add('real-icon');
-            tile.appendChild(img);
-        };
-        img.src = path.charAt(0) === '/' ? 'file://' + path : path;
-    }
-
-    function wantsRealIcons() {
-        return Prefs.get().appearance.icons !== 'loghi';
-    }
-
     function tileFace(item) {
         var tile = el('div', 'tile');
-        if (item.iconPath && item.brand && wantsRealIcons()) tryRealIcon(tile, item.iconPath);
         if (item.brand) {
             tile.style.background = item.brand.bg;
             if (item.brand.text) {
@@ -95,9 +63,9 @@
             tile.style.background = 'hsl(' + hue(item.label) + ',32%,24%)';
             var mono = el('div', 'mono', initials(item.label).toUpperCase());
             tile.appendChild(mono);
-            if (item.iconPath && wantsRealIcons()) tryRealIcon(tile, item.iconPath);
-            else if (item.iconPath) tryIcon(tile, mono, item.iconPath);
         }
+        // Icona originale (dalla TV o da internet) sopra il logo, appena arriva: icons.js.
+        if (item.kind === 'app') Icons.attach(tile, item);
         return tile;
     }
 
@@ -191,7 +159,10 @@
         row.innerHTML = '';
         var items = homeItems();
         if (!items.length) items = Apps.allSorted(state.apps, false).slice(0, 8);
-        items.forEach(function (item) { row.appendChild(appTile(item)); });
+        items.forEach(function (item) {
+            item.onHome = true;   // solo le app della Home cercano l'icona su internet
+            row.appendChild(appTile(item));
+        });
         row.appendChild(allAppsTile());
 
         var row2 = $('inputs-row');

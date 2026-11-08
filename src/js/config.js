@@ -46,8 +46,26 @@ window.LAUNCHER_CONFIG = {
     theme: {
         // Starting wallpaper (key from js/wallpapers.js), or null for none (plain gradient).
         // Changed from Settings → Background; the TV remembers the choice.
-        wallpaper: 'seta'
+        wallpaper: 'seta',
+        // Gli sfondi astratti girano da soli; si cambia da Impostazioni → Sfondo.
+        rotate: '1m'
     },
+
+    /*
+     * Foto divertenti nel riquadro in alto a sinistra della Home, scaricate dalla TV.
+     *   source: 'misto' (gatti e cani) | 'gatti' | 'cani' | 'mie' (solo le foto in `mine`) | 'off'
+     *   every:  ogni quanto cambia: '15s' | '30s' | '1m'
+     *   mine:   foto tue dentro src/img/foto/, ad esempio ['img/foto/vacanze.jpg']. Se ci sono,
+     *           si alternano anche a quelle da internet.
+     */
+    funPhotos: {
+        source: 'misto',
+        every: '30s',
+        mine: []
+    },
+
+    // Stile della Home (vedi Appearance.STYLES): fisso, non si cambia dal telecomando.
+    style: 'cinema',
 
     /*
      * Weather shown in the screen saver's corner, from Open-Meteo. No API key and nothing to

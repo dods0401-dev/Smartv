@@ -7,6 +7,8 @@
 
     var KEY = 'arn0.prefs.v1';
     var LEGACY_WALLPAPER_KEY = 'arn0.wallpaper';
+    // Aumentato quando cambia l'impostazione di base della Home (vedi load()).
+    var LAYOUT = 2;
 
     function defaults() {
         var cfg = window.LAUNCHER_CONFIG || {};
@@ -17,9 +19,9 @@
                 preset: cfg.sound && cfg.sound.preset || 'soft'
             },
             wallpaper: {
-                mode: theme.wallpaper ? 'photo' : 'off',   // 'off' | 'photo' | 'rotate'
+                mode: theme.rotate ? 'rotate' : theme.wallpaper ? 'photo' : 'off',   // 'off' | 'photo' | 'rotate'
                 photo: theme.wallpaper || 'forest',
-                interval: '15m',        // see Wallpaper.INTERVALS
+                interval: theme.rotate || '15m',   // see Wallpaper.INTERVALS
                 lastChange: 0
             },
             screensaver: {
@@ -34,10 +36,14 @@
                 locale: cfg.locale || 'en-GB',
                 font: 'manrope',        // see Appearance.FONTS
                 names: 'focused',       // app names under tiles: 'always' | 'focused' | 'never'
-                motion: 'on',           // 'on' | 'off': animazioni di sfondo, entrata e riflessi
-                style: 'vetro',         // 'vetro' | 'cinema' | 'icone' | 'chiaro' (vedi Appearance.STYLES)
-                icons: 'tv'             // 'tv': icone vere dell'app dalla TV | 'loghi': loghi disegnati
+                motion: 'on'            // 'on' | 'off': animazioni di sfondo, entrata e riflessi
             },
+            // Foto divertenti al posto del saluto (fun.js): 'misto' | 'gatti' | 'cani' | 'mie' | 'off'
+            fun: {
+                source: (cfg.funPhotos && cfg.funPhotos.source) || 'misto',
+                every: (cfg.funPhotos && cfg.funPhotos.every) || '30s'
+            },
+            layout: LAYOUT,
             home: null,                 // [{ id, label, brand }] once edited; null = config.js apps
             inputs: null                // [{ hdmi, label, brand, method, hidden }] once edited; null = config.js
         };
@@ -56,7 +62,10 @@
             var saved = JSON.parse(localStorage.getItem(KEY));
             if (saved) {
                 merge(prefs.sound, saved.sound);
-                merge(prefs.wallpaper, saved.wallpaper);
+                // Chi arriva da una versione precedente della Home riparte dagli sfondi a
+                // rotazione nuovi; app, dispositivi e il resto restano com'erano.
+                if (saved.layout === LAYOUT) merge(prefs.wallpaper, saved.wallpaper);
+                merge(prefs.fun, saved.fun);
                 merge(prefs.screensaver, saved.screensaver);
                 merge(prefs.appearance, saved.appearance);
                 if (Array.isArray(saved.home) && saved.home.length) prefs.home = saved.home;

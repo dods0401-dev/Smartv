@@ -1,5 +1,6 @@
-/* Foto: Unsplash License. Sfondi astratti (Seta, Aurora liquida, Magma, Laguna, Ametista, Oro, Perla, Alba):
-   generati per questo progetto. `blur` è la copia sfocata usata dai pannelli di vetro. */
+/* Foto: Unsplash License. Sfondi astratti e chiari: generati per questo progetto.
+   `blur`: copia sfocata per i pannelli di vetro. `abstract`: entra nella rotazione della Home.
+   `light`: sfondo chiaro (stile Chiaro). */
 window.WALLPAPERS = [
     {
         "key": "seta",
@@ -7,7 +8,8 @@ window.WALLPAPERS = [
         "file": "img/wallpapers/seta.jpg",
         "thumb": "img/wallpapers/thumbs/seta.jpg",
         "credit": "",
-        "blur": "img/wallpapers/blur/seta.jpg"
+        "blur": "img/wallpapers/blur/seta.jpg",
+        "abstract": true
     },
     {
         "key": "aurora-liquida",
@@ -15,7 +17,8 @@ window.WALLPAPERS = [
         "file": "img/wallpapers/aurora-liquida.jpg",
         "thumb": "img/wallpapers/thumbs/aurora-liquida.jpg",
         "credit": "",
-        "blur": "img/wallpapers/blur/aurora-liquida.jpg"
+        "blur": "img/wallpapers/blur/aurora-liquida.jpg",
+        "abstract": true
     },
     {
         "key": "magma",
@@ -23,7 +26,8 @@ window.WALLPAPERS = [
         "file": "img/wallpapers/magma.jpg",
         "thumb": "img/wallpapers/thumbs/magma.jpg",
         "credit": "",
-        "blur": "img/wallpapers/blur/magma.jpg"
+        "blur": "img/wallpapers/blur/magma.jpg",
+        "abstract": true
     },
     {
         "key": "laguna",
@@ -31,7 +35,8 @@ window.WALLPAPERS = [
         "file": "img/wallpapers/laguna.jpg",
         "thumb": "img/wallpapers/thumbs/laguna.jpg",
         "credit": "",
-        "blur": "img/wallpapers/blur/laguna.jpg"
+        "blur": "img/wallpapers/blur/laguna.jpg",
+        "abstract": true
     },
     {
         "key": "ametista",
@@ -39,7 +44,8 @@ window.WALLPAPERS = [
         "file": "img/wallpapers/ametista.jpg",
         "thumb": "img/wallpapers/thumbs/ametista.jpg",
         "credit": "",
-        "blur": "img/wallpapers/blur/ametista.jpg"
+        "blur": "img/wallpapers/blur/ametista.jpg",
+        "abstract": true
     },
     {
         "key": "oro",
@@ -47,7 +53,62 @@ window.WALLPAPERS = [
         "file": "img/wallpapers/oro.jpg",
         "thumb": "img/wallpapers/thumbs/oro.jpg",
         "credit": "",
-        "blur": "img/wallpapers/blur/oro.jpg"
+        "blur": "img/wallpapers/blur/oro.jpg",
+        "abstract": true
+    },
+    {
+        "key": "nebula",
+        "title": "Nebulosa",
+        "file": "img/wallpapers/nebula.jpg",
+        "thumb": "img/wallpapers/thumbs/nebula.jpg",
+        "credit": "",
+        "blur": "img/wallpapers/blur/nebula.jpg",
+        "abstract": true
+    },
+    {
+        "key": "neon",
+        "title": "Neon",
+        "file": "img/wallpapers/neon.jpg",
+        "thumb": "img/wallpapers/thumbs/neon.jpg",
+        "credit": "",
+        "blur": "img/wallpapers/blur/neon.jpg",
+        "abstract": true
+    },
+    {
+        "key": "ghiaccio",
+        "title": "Aurora boreale glaciale",
+        "file": "img/wallpapers/ghiaccio.jpg",
+        "thumb": "img/wallpapers/thumbs/ghiaccio.jpg",
+        "credit": "",
+        "blur": "img/wallpapers/blur/ghiaccio.jpg",
+        "abstract": true
+    },
+    {
+        "key": "tramonto",
+        "title": "Tramonto liquido",
+        "file": "img/wallpapers/tramonto.jpg",
+        "thumb": "img/wallpapers/thumbs/tramonto.jpg",
+        "credit": "",
+        "blur": "img/wallpapers/blur/tramonto.jpg",
+        "abstract": true
+    },
+    {
+        "key": "smeraldo",
+        "title": "Smeraldo",
+        "file": "img/wallpapers/smeraldo.jpg",
+        "thumb": "img/wallpapers/thumbs/smeraldo.jpg",
+        "credit": "",
+        "blur": "img/wallpapers/blur/smeraldo.jpg",
+        "abstract": true
+    },
+    {
+        "key": "plasma",
+        "title": "Plasma",
+        "file": "img/wallpapers/plasma.jpg",
+        "thumb": "img/wallpapers/thumbs/plasma.jpg",
+        "credit": "",
+        "blur": "img/wallpapers/blur/plasma.jpg",
+        "abstract": true
     },
     {
         "key": "perla",

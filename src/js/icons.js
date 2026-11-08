@@ -1,0 +1,167 @@
+/*
+ * Icone originali delle app.
+ *
+ * Ordine: l'icona che fornisce la TV; se manca o non è leggibile, la TV la cerca su internet
+ * (App Store, che ha le icone ufficiali in alta qualità) e si ricorda il risultato; se anche
+ * questo fallisce resta il logo disegnato di brands.js.
+ *
+ * In config.js un'app può avere `icon: 'https://…'` per forzare un'immagine, oppure
+ * `iconSearch: 'nome'` se la ricerca con il suo nome trova l'app sbagliata.
+ */
+(function () {
+    'use strict';
+
+    var KEY = 'home.icons.v1';
+    var ENDPOINT = 'https://itunes.apple.com/search';
+    var RETRY_MS = 6 * 60 * 60 * 1000;   // dopo un fallimento riprova tra 6 ore
+    var cache = load();
+    var pending = {};
+
+    function load() {
+        try {
+            return JSON.parse(localStorage.getItem(KEY)) || {};
+        } catch (e) {
+            return {};
+        }
+    }
+
+    function store() {
+        try {
+            localStorage.setItem(KEY, JSON.stringify(cache));
+        } catch (e) {
+            // Senza cache si rifà solo la ricerca al prossimo avvio.
+        }
+    }
+
+    function norm(text) {
+        return String(text || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+
+    // Prima un nome che inizia con il termine ("Netflix"), poi uno che lo contiene
+    // ("Amazon Prime Video" per "Prime Video").
+    function pick(results, term) {
+        var t = norm(term);
+        var best = results.find(function (r) { return norm(r.trackName).indexOf(t) === 0; }) ||
+            results.find(function (r) { return norm(r.trackName).indexOf(t) >= 0; });
+        return best ? (best.artworkUrl512 || best.artworkUrl100 || null) : null;
+    }
+
+    function finish(k, url) {
+        cache[k] = url ? { url: url } : { failed: Date.now() };
+        store();
+        var callbacks = pending[k] || [];
+        delete pending[k];
+        callbacks.forEach(function (fn) { fn(url); });
+    }
+
+    function lookup(term, done) {
+        var k = norm(term);
+        if (!k) return done(null);
+        var hit = cache[k];
+        if (hit && hit.url) return done(hit.url);
+        if (hit && hit.failed && Date.now() - hit.failed < RETRY_MS) return done(null);
+        if (pending[k]) {
+            pending[k].push(done);
+            return;
+        }
+        pending[k] = [done];
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', ENDPOINT + '?entity=software&country=it&limit=10&term=' + encodeURIComponent(term), true);
+        xhr.timeout = 10000;
+        xhr.onload = function () {
+            var url = null;
+            try {
+                url = pick(JSON.parse(xhr.responseText).results || [], term);
+            } catch (e) {
+                url = null;
+            }
+            DevLog.log('Icona per ' + term + ': ' + (url || 'non trovata'));
+            finish(k, url);
+        };
+        xhr.onerror = function () { finish(k, null); };
+        xhr.ontimeout = function () { finish(k, null); };
+        xhr.send();
+    }
+
+    /*
+     * Colore del bordo dell'icona, per allargarla senza stacchi sulle tessere larghe. Funziona
+     * solo se l'immagine è leggibile (stessa origine o CORS); altrimenti null e la tessera tiene
+     * il colore del marchio.
+     */
+    function edgeColor(img) {
+        try {
+            var c = document.createElement('canvas');
+            c.width = 24;
+            c.height = 24;
+            var ctx = c.getContext('2d');
+            ctx.drawImage(img, 0, 0, 24, 24);
+            var d = ctx.getImageData(0, 0, 24, 24).data;
+            var sum = [0, 0, 0];
+            var n = 0;
+            for (var y = 0; y < 24; y++) {
+                for (var x = 0; x < 24; x++) {
+                    if (x > 1 && x < 22 && y > 1 && y < 22) continue;
+                    var i = (y * 24 + x) * 4;
+                    if (d[i + 3] < 200) continue;
+                    sum[0] += d[i];
+                    sum[1] += d[i + 1];
+                    sum[2] += d[i + 2];
+                    n++;
+                }
+            }
+            if (!n) return null;
+            return 'rgb(' + Math.round(sum[0] / n) + ',' + Math.round(sum[1] / n) + ',' + Math.round(sum[2] / n) + ')';
+        } catch (e) {
+            return null;
+        }
+    }
+
+    // Prova a caricare un'immagine; un'immagine remota prima con CORS (per leggere il colore),
+    // poi senza se il server non lo permette.
+    function loadImage(src, remote, ok, fail) {
+        var img = new Image();
+        img.className = 'real';
+        if (remote) img.crossOrigin = 'anonymous';
+        img.onload = function () {
+            if (img.naturalWidth < 8) fail();
+            else ok(img);
+        };
+        img.onerror = function () {
+            if (remote && img.crossOrigin) loadImage(src, false, ok, fail);
+            else fail();
+        };
+        img.src = src;
+    }
+
+    function apply(tile, img) {
+        tile.classList.add('real-icon');
+        tile.appendChild(img);
+        var color = edgeColor(img);
+        if (color) tile.style.background = color;
+    }
+
+    // item: { iconPath, icon, iconSearch, label, onHome }
+    function attach(tile, item) {
+        function internet() {
+            if (!item.onHome) return;
+            if (item.icon) {
+                loadImage(item.icon, true, function (img) { apply(tile, img); }, function () {});
+                return;
+            }
+            lookup(item.iconSearch || item.label, function (url) {
+                if (url) loadImage(url, true, function (img) { apply(tile, img); }, function () {});
+            });
+        }
+        if (item.iconPath) {
+            var src = item.iconPath.charAt(0) === '/' ? 'file://' + item.iconPath : item.iconPath;
+            loadImage(src, false, function (img) { apply(tile, img); }, internet);
+        } else {
+            internet();
+        }
+    }
+
+    window.Icons = {
+        attach: attach,
+        lookup: lookup
+    };
+})();

@@ -18,6 +18,7 @@
     Weather.start();
     Glass.init();
     Home.init();
+    Fun.init();
 
     // Preview only: open a screen directly, e.g. http://localhost:8080/#settings
     var view = location.hash.slice(1);

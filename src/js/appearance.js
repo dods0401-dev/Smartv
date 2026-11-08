@@ -61,6 +61,11 @@
         return 'Buonasera';
     }
 
+    // Lo stile viene da config.js e non si cambia dal telecomando.
+    function style() {
+        return (window.LAUNCHER_CONFIG || {}).style || 'cinema';
+    }
+
     function apply() {
         var p = prefs();
         document.documentElement.style.setProperty('--font', font(p.font).family + FALLBACK);
@@ -70,13 +75,14 @@
         home.classList.toggle('no-date', !p.showDate);
         document.documentElement.classList.toggle('no-motion', p.motion === 'off');
         var stage = document.getElementById('stage');
-        STYLES.forEach(function (s) { stage.classList.toggle('style-' + s.key, (p.style || 'vetro') === s.key); });
+        STYLES.forEach(function (s) { stage.classList.toggle('style-' + s.key, style() === s.key); });
     }
 
     window.Appearance = {
         FONTS: FONTS,
         LOCALES: LOCALES,
         STYLES: STYLES,
+        style: style,
         font: font,
         time: time,
         date: date,

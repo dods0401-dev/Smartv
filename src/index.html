@@ -9,8 +9,15 @@
 <body>
     <div id="stage">
         <div id="bg"></div>
+        <div id="bg-next"></div>
 
         <section id="home" class="view">
+            <!-- Foto divertenti (fun.js): due livelli per la dissolvenza tra una foto e l'altra. -->
+            <div id="fun" class="fun">
+                <div id="fun-a" class="fun-photo"></div>
+                <div id="fun-b" class="fun-photo"></div>
+                <div id="fun-cap" class="fun-cap"></div>
+            </div>
             <header class="clock">
                 <div id="greeting"></div>
                 <div id="time"><span id="time-main"></span><span id="time-suffix"></span></div>
@@ -84,7 +91,7 @@
         </section>
 
         <section id="style" class="view page hidden">
-            <header class="page-head"><h1>Stile</h1></header>
+            <header class="page-head"><h1>Home</h1></header>
             <div id="style-body" class="settings-body compact"></div>
         </section>
 
@@ -193,6 +200,8 @@
     <script src="js/wallpaper.js"></script>
     <script src="js/appearance.js"></script>
     <script src="js/glass.js"></script>
+    <script src="js/icons.js"></script>
+    <script src="js/fun.js"></script>
     <script src="js/weather.js"></script>
     <script src="js/sound.js"></script>
     <script src="js/ui.js"></script>
