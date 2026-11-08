@@ -26,6 +26,7 @@
         app('MovistarPl.MovistarPlus', 'Movistar Plus+'),
         app('PlexMedia0.Plex', 'Plex'),
         app('DaznApp000.DAZN', 'DAZN'),
+        app('HboMaxApp0.HBOMax', 'HBO Max'),
         app('RtveTvApp0.RTVEPlay', 'RTVE Play'),
         app('Atresplay0.atresplayer', 'atresplayer'),
         app('RaiPlayTv0.RaiPlay', 'RaiPlay'),

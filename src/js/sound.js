@@ -21,9 +21,9 @@
         volume: 0.08,
         minGapMs: 45,   // key repeat can fire faster than this; extra presses are dropped
         presets: {
-            soft: { label: 'Soft', freq: 620, ms: 30, type: 'sine' },
-            warm: { label: 'Warm', freq: 520, ms: 44, type: 'triangle' },
-            bright: { label: 'Bright', freq: 1040, ms: 30, type: 'triangle' }
+            soft: { label: 'Morbido', freq: 620, ms: 30, type: 'sine' },
+            warm: { label: 'Caldo', freq: 520, ms: 44, type: 'triangle' },
+            bright: { label: 'Brillante', freq: 1040, ms: 30, type: 'triangle' }
         },
         move: { freq: 880, ms: 38, type: 'triangle' },
         edge: { freq: 200, ms: 70, type: 'sine' },

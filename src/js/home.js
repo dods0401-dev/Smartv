@@ -430,14 +430,14 @@
             rows: function () { return UI.chunk(UI.children($('all-grid')), GRID_COLS); },
             onShow: renderAll,
             activate: launchApp,
-            hints: [['OK', 'Apri'], ['Back', 'Home']]
+            hints: [['OK', 'Apri'], ['Indietro', 'Home']]
         });
 
         UI.register('lab', {
             el: $('lab'),
             rows: function () { return UI.children($('lab-list')).map(function (li) { return [li]; }); },
             activate: function (item) { item.run(); },
-            hints: [['OK', 'Run'], ['Back', 'Home']]
+            hints: [['OK', 'Esegui'], ['Indietro', 'Home']]
         });
     }
 

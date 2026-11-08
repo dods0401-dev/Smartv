@@ -35,9 +35,9 @@
 
     var DARK_AFTER = [
         { key: '30m', label: '30 min', ms: 30 * 60 * 1000 },
-        { key: '1h', label: '1 hour', ms: 60 * 60 * 1000 },
-        { key: '2h', label: '2 hours', ms: 2 * 60 * 60 * 1000 },
-        { key: 'never', label: 'Never', ms: 0 }
+        { key: '1h', label: '1 ora', ms: 60 * 60 * 1000 },
+        { key: '2h', label: '2 ore', ms: 2 * 60 * 60 * 1000 },
+        { key: 'never', label: 'Mai', ms: 0 }
     ];
 
     /*

@@ -2,49 +2,49 @@
 window.WALLPAPERS = [
     {
         "key": "coast",
-        "title": "Coast village",
+        "title": "Borgo sul mare",
         "file": "img/wallpapers/coast.jpg",
         "thumb": "img/wallpapers/thumbs/coast.jpg",
         "credit": "Anders Jilden on Unsplash"
     },
     {
         "key": "valley-snow",
-        "title": "Snowy valley",
+        "title": "Valle innevata",
         "file": "img/wallpapers/valley-snow.jpg",
         "thumb": "img/wallpapers/thumbs/valley-snow.jpg",
         "credit": "Jms on Unsplash"
     },
     {
         "key": "forest",
-        "title": "Forest path",
+        "title": "Sentiero nel bosco",
         "file": "img/wallpapers/forest.jpg",
         "thumb": "img/wallpapers/thumbs/forest.jpg",
         "credit": "Johannes Plenio on Unsplash"
     },
     {
         "key": "aurora",
-        "title": "Aurora",
+        "title": "Aurora boreale",
         "file": "img/wallpapers/aurora.jpg",
         "thumb": "img/wallpapers/thumbs/aurora.jpg",
         "credit": "Jonatan Pie on Unsplash"
     },
     {
         "key": "night-sky",
-        "title": "Night sky",
+        "title": "Cielo notturno",
         "file": "img/wallpapers/night-sky.jpg",
         "thumb": "img/wallpapers/thumbs/night-sky.jpg",
         "credit": "Jonatan Pie on Unsplash"
     },
     {
         "key": "earth",
-        "title": "Earth at night",
+        "title": "La Terra di notte",
         "file": "img/wallpapers/earth.jpg",
         "thumb": "img/wallpapers/thumbs/earth.jpg",
         "credit": "Nasa on Unsplash"
     },
     {
         "key": "milky-way",
-        "title": "Milky Way",
+        "title": "Via Lattea",
         "file": "img/wallpapers/milky-way.jpg",
         "thumb": "img/wallpapers/thumbs/milky-way.jpg",
         "credit": "Stefan Stefancik on Unsplash"
@@ -58,14 +58,14 @@ window.WALLPAPERS = [
     },
     {
         "key": "hills",
-        "title": "Golden hills",
+        "title": "Colline dorate",
         "file": "img/wallpapers/hills.jpg",
         "thumb": "img/wallpapers/thumbs/hills.jpg",
         "credit": "Urban Vintage on Unsplash"
     },
     {
         "key": "waterfall",
-        "title": "Waterfall",
+        "title": "Cascata",
         "file": "img/wallpapers/waterfall.jpg",
         "thumb": "img/wallpapers/thumbs/waterfall.jpg",
         "credit": "Wil Stewart on Unsplash"

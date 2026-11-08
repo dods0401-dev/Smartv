@@ -3,12 +3,12 @@
     'use strict';
 
     var INTERVALS = [
-        { key: 'open', label: 'Each time Home opens', ms: 0 },
+        { key: 'open', label: 'A ogni apertura della Home', ms: 0 },
         { key: '30s', label: '30 s', ms: 30 * 1000 },
         { key: '5m', label: '5 min', ms: 5 * 60 * 1000 },
         { key: '15m', label: '15 min', ms: 15 * 60 * 1000 },
-        { key: '1h', label: '1 hour', ms: 60 * 60 * 1000 },
-        { key: '1d', label: 'Daily', ms: 24 * 60 * 60 * 1000 }
+        { key: '1h', label: '1 ora', ms: 60 * 60 * 1000 },
+        { key: '1d', label: 'Ogni giorno', ms: 24 * 60 * 60 * 1000 }
     ];
 
     var token = 0;

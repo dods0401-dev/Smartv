@@ -251,7 +251,7 @@
 
     UI.register('runner-game', {
         el: document.getElementById('runner-game'),
-        hints: [['OK / Up', 'Jump'], ['Down', 'Duck'], ['Back', 'Home']],
+        hints: [['OK / ▲', 'Salta'], ['▼', 'Abbassati'], ['Indietro', 'Home']],
         rows: function () { return []; },
         onShow: show,
         onKey: function (key) {

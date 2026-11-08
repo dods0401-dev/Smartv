@@ -20,12 +20,12 @@
         { key: 'playstation', label: 'PlayStation' },
         { key: 'xbox', label: 'Xbox' },
         { key: 'switch', label: 'Nintendo Switch' },
-        { key: '', label: 'None' }
+        { key: '', label: 'Nessuno' }
     ];
 
     var METHODS = [
-        { key: 'switch+viewer', label: 'TV input', hint: 'Game Mode works' },
-        { key: 'inapp', label: 'Inside the launcher', hint: 'Back returns here' }
+        { key: 'switch+viewer', label: 'Ingresso TV', hint: 'Modalità Gioco attiva' },
+        { key: 'inapp', label: 'Dentro la launcher', hint: 'Indietro torna qui' }
     ];
 
     // ---------- Generic list pages
@@ -90,7 +90,7 @@
         DevLog.log('Open Samsung Home');
         Apps.launch(SAMSUNG_HOME).catch(function (err) {
             DevLog.log('Samsung Home failed: ' + DevLog.errorText(err));
-            UI.toast('Could not open Samsung Home: ' + DevLog.errorText(err));
+            UI.toast('Impossibile aprire la Home Samsung: ' + DevLog.errorText(err));
         }).then(function () { opening = false; });
     }
 
@@ -98,24 +98,24 @@
 
     function wallpaperSummary() {
         var p = Prefs.get().wallpaper;
-        if (p.mode === 'off') return 'Off';
-        if (p.mode === 'rotate') return 'Rotate · ' + Wallpaper.interval(p.interval).label.toLowerCase();
+        if (p.mode === 'off') return 'Spento';
+        if (p.mode === 'rotate') return 'A rotazione · ' + Wallpaper.interval(p.interval).label.toLowerCase();
         var w = Wallpaper.find(p.photo);
-        return w ? w.title : 'Photo';
+        return w ? w.title : 'Foto';
     }
 
     function overviewEntries() {
         var a = Prefs.get().appearance;
         var shown = Home.inputs().filter(function (i) { return !i.hidden; }).length;
         return [
-            { label: 'Background', value: wallpaperSummary(), run: function () { UI.show('bg'); } },
-            { label: 'Apps on Home', value: Home.homeItems().length + ' apps', run: function () { UI.show('homeapps'); } },
-            { label: 'Consoles', value: shown + ' on Home', run: function () { UI.show('consoles'); } },
-            { label: 'Appearance', value: Appearance.font(a.font).label + ' · ' + (a.clock === '12h' ? '12-hour' : '24-hour'), run: function () { UI.show('appearance'); } },
-            { label: 'Navigation sound', value: soundSummary(), run: function () { UI.show('sound-settings'); } },
-            { label: 'Screen saver', value: screensaverSummary(), run: function () { UI.show('screensaver-settings'); } },
-            { label: 'Samsung Home', value: 'Smart Hub and TV settings', run: openSamsungHome },
-            { label: 'Advanced', value: 'Refresh, reset, Lab', run: function () { UI.show('advanced'); } }
+            { label: 'Sfondo', value: wallpaperSummary(), run: function () { UI.show('bg'); } },
+            { label: 'App nella Home', value: Home.homeItems().length + ' app', run: function () { UI.show('homeapps'); } },
+            { label: 'Dispositivi HDMI', value: shown + ' nella Home', run: function () { UI.show('consoles'); } },
+            { label: 'Aspetto', value: Appearance.font(a.font).label + ' · ' + (a.clock === '12h' ? '12 ore' : '24 ore'), run: function () { UI.show('appearance'); } },
+            { label: 'Suono di navigazione', value: soundSummary(), run: function () { UI.show('sound-settings'); } },
+            { label: 'Salvaschermo', value: screensaverSummary(), run: function () { UI.show('screensaver-settings'); } },
+            { label: 'Home Samsung', value: 'Smart Hub e impostazioni TV', run: openSamsungHome },
+            { label: 'Avanzate', value: 'Aggiorna, ripristina, Lab', run: function () { UI.show('advanced'); } }
         ];
     }
 
@@ -146,7 +146,7 @@
 
         var modes = $('bg-mode');
         modes.innerHTML = '';
-        [['off', 'Off'], ['photo', 'Photo'], ['rotate', 'Rotate']].forEach(function (m) {
+        [['off', 'Spento'], ['photo', 'Foto'], ['rotate', 'A rotazione']].forEach(function (m) {
             modes.appendChild(chip(m[1], p.mode === m[0], { kind: 'mode', key: m[0] }));
         });
 
@@ -192,11 +192,11 @@
 
     function appearanceBlocks() {
         return [
-            { title: 'Clock', key: 'clock', options: [['24h', '24-hour'], ['12h', '12-hour']] },
-            { title: 'Date', key: 'showDate', options: [[true, 'Show'], [false, 'Hide']] },
-            { title: 'Date language', key: 'locale', options: Appearance.LOCALES.map(function (l) { return [l.key, l.label]; }) },
-            { title: 'Font', key: 'font', options: Appearance.FONTS.map(function (f) { return [f.key, f.label, f.family]; }) },
-            { title: 'App names', key: 'names', options: [['always', 'Always'], ['focused', 'When selected'], ['never', 'Never']] }
+            { title: 'Orologio', key: 'clock', options: [['24h', '24 ore'], ['12h', '12 ore']] },
+            { title: 'Data', key: 'showDate', options: [[true, 'Mostra'], [false, 'Nascondi']] },
+            { title: 'Lingua della data', key: 'locale', options: Appearance.LOCALES.map(function (l) { return [l.key, l.label]; }) },
+            { title: 'Carattere', key: 'font', options: Appearance.FONTS.map(function (f) { return [f.key, f.label, f.family]; }) },
+            { title: 'Nomi delle app', key: 'names', options: [['always', 'Sempre'], ['focused', 'Quando selezionata'], ['never', 'Mai']] }
         ];
     }
 
@@ -231,7 +231,7 @@
 
     function soundSummary() {
         var p = Prefs.get().sound;
-        return p.enabled ? 'On · ' + Sound.presetLabel() : 'Off';
+        return p.enabled ? 'Attivo · ' + Sound.presetLabel() : 'Spento';
     }
 
     function renderSound() {
@@ -240,15 +240,15 @@
         body.innerHTML = '';
 
         var enabledBlock = el('div', 'setting-block');
-        enabledBlock.appendChild(el('h2', '', 'Sound'));
+        enabledBlock.appendChild(el('h2', '', 'Suono'));
         var enabledChips = el('div', 'chips');
-        enabledChips.appendChild(chip('On', p.enabled, { kind: 'enabled', value: true }));
-        enabledChips.appendChild(chip('Off', !p.enabled, { kind: 'enabled', value: false }));
+        enabledChips.appendChild(chip('Attivo', p.enabled, { kind: 'enabled', value: true }));
+        enabledChips.appendChild(chip('Spento', !p.enabled, { kind: 'enabled', value: false }));
         enabledBlock.appendChild(enabledChips);
         body.appendChild(enabledBlock);
 
         var presetBlock = el('div', 'setting-block');
-        presetBlock.appendChild(el('h2', '', 'Style'));
+        presetBlock.appendChild(el('h2', '', 'Stile'));
         var presetChips = el('div', 'chips');
         Sound.presetOptions().forEach(function (preset) {
             presetChips.appendChild(chip(preset.label, p.preset === preset.key,
@@ -258,9 +258,9 @@
         body.appendChild(presetBlock);
 
         var previewBlock = el('div', 'setting-block');
-        previewBlock.appendChild(el('h2', '', 'Try it'));
+        previewBlock.appendChild(el('h2', '', 'Prova'));
         var previewChips = el('div', 'chips');
-        previewChips.appendChild(chip('Preview selected sound', false, { kind: 'preview' }));
+        previewChips.appendChild(chip('Ascolta il suono scelto', false, { kind: 'preview' }));
         previewBlock.appendChild(previewChips);
         body.appendChild(previewBlock);
     }
@@ -290,7 +290,7 @@
 
     function screensaverSummary() {
         var p = Prefs.get().screensaver;
-        return p.enabled ? 'After ' + Screensaver.delay().label : 'Off';
+        return p.enabled ? 'Dopo ' + Screensaver.delay().label : 'Spento';
     }
 
     /*
@@ -299,13 +299,13 @@
      */
     function screensaverBlocks() {
         var blocks = [
-            { title: 'Screen saver', key: 'enabled', options: [[true, 'On'], [false, 'Off']] },
-            { title: 'Start after', key: 'delay', options: optionPairs(Screensaver.DELAYS) }
+            { title: 'Salvaschermo', key: 'enabled', options: [[true, 'Attivo'], [false, 'Spento']] },
+            { title: 'Parte dopo', key: 'delay', options: optionPairs(Screensaver.DELAYS) }
         ];
         if (Prefs.get().wallpaper.mode === 'rotate') {
-            blocks.push({ title: 'Change photo every', key: 'photoEvery', options: optionPairs(Screensaver.PHOTO_EVERY) });
+            blocks.push({ title: 'Cambia foto ogni', key: 'photoEvery', options: optionPairs(Screensaver.PHOTO_EVERY) });
         }
-        blocks.push({ title: 'Go dark after', key: 'dark', options: optionPairs(Screensaver.DARK_AFTER) });
+        blocks.push({ title: 'Schermo nero dopo', key: 'dark', options: optionPairs(Screensaver.DARK_AFTER) });
         return blocks;
     }
 
@@ -329,9 +329,9 @@
         });
 
         var tryBlock = el('div', 'setting-block');
-        tryBlock.appendChild(el('h2', '', 'Try it'));
+        tryBlock.appendChild(el('h2', '', 'Prova'));
         var tryChips = el('div', 'chips');
-        tryChips.appendChild(chip('Show it now', false, { kind: 'preview' }));
+        tryChips.appendChild(chip('Mostralo ora', false, { kind: 'preview' }));
         tryBlock.appendChild(tryChips);
         body.appendChild(tryBlock);
     }
@@ -375,8 +375,8 @@
         var other = $('ed-other');
         other.innerHTML = '';
         ed.others.forEach(function (item) { other.appendChild(edRow(item, false)); });
-        $('ed-home-title').textContent = 'On Home · ' + ed.items.length;
-        $('ed-other-title').textContent = 'Add apps · ' + ed.others.length;
+        $('ed-home-title').textContent = 'Nella Home · ' + ed.items.length;
+        $('ed-other-title').textContent = 'Aggiungi app · ' + ed.others.length;
         if (!ed.others.length) ed.col = 0;
     }
 
@@ -447,7 +447,7 @@
                 ed.items.push(added);
                 edSave();
                 edRender();
-                UI.toast('Added ' + added.label + ' to Home');
+                UI.toast(added.label + ' aggiunta alla Home');
             }
             edRefresh();
             return true;
@@ -461,7 +461,7 @@
         if (!item) return;
         UI.menu(item.label, [
             {
-                label: 'Move', run: function () {
+                label: 'Sposta', run: function () {
                     ed.moving = i;
                     ed.snapshot = ed.items.slice();
                     edRender();
@@ -469,9 +469,9 @@
                 }
             },
             {
-                label: 'Remove from Home', run: function () {
+                label: 'Togli dalla Home', run: function () {
                     if (ed.items.length <= 1) {
-                        UI.toast('Home needs at least one app');
+                        UI.toast('La Home deve avere almeno un\'app');
                         return;
                     }
                     ed.items.splice(i, 1);
@@ -480,7 +480,7 @@
                     UI.refresh();
                 }
             },
-            { label: 'Cancel' }
+            { label: 'Annulla' }
         ]);
     }
 
@@ -511,12 +511,12 @@
         var entries = Home.inputs().map(function (input, i) {
             return {
                 label: input.label,
-                value: input.hidden ? 'Hidden' : 'HDMI ' + input.hdmi + ' · ' + methodOf(input).label,
+                value: input.hidden ? 'Nascosto' : 'HDMI ' + input.hdmi + ' · ' + methodOf(input).label,
                 mini: Home.miniInputTile(input),
                 run: function () { consoleMenu(i); }
             };
         });
-        entries.push({ label: '+ Add a console', value: '', run: addConsole });
+        entries.push({ label: '+ Aggiungi un dispositivo', value: '', run: addConsole });
         return entries;
     }
 
@@ -534,15 +534,15 @@
         var status = Home.hdmiStatus();
         var options = [
             {
-                label: 'Rename', run: function () {
+                label: 'Rinomina', run: function () {
                     rename(c.label, function (name) { editInputs(function (l) { l[i].label = name; }); });
                 }
             },
             {
-                label: 'HDMI port · HDMI ' + c.hdmi, run: function () {
-                    UI.menu('HDMI port', [1, 2, 3, 4].map(function (n) {
+                label: 'Porta HDMI · HDMI ' + c.hdmi, run: function () {
+                    UI.menu('Porta HDMI', [1, 2, 3, 4].map(function (n) {
                         return {
-                            label: 'HDMI ' + n + (status[n] ? ' · connected' : ''),
+                            label: 'HDMI ' + n + (status[n] ? ' · collegato' : ''),
                             checked: n === c.hdmi,
                             run: function () { editInputs(function (l) { l[i].hdmi = n; }); }
                         };
@@ -561,8 +561,8 @@
                 }
             },
             {
-                label: 'Opens · ' + methodOf(c).label, run: function () {
-                    UI.menu('Opens', METHODS.map(function (m) {
+                label: 'Si apre · ' + methodOf(c).label, run: function () {
+                    UI.menu('Si apre', METHODS.map(function (m) {
                         return {
                             label: m.label + ' · ' + m.hint,
                             checked: m.key === methodOf(c).key,
@@ -572,25 +572,25 @@
                 }
             },
             {
-                label: c.hidden ? 'Show on Home' : 'Hide from Home',
+                label: c.hidden ? 'Mostra nella Home' : 'Nascondi dalla Home',
                 run: function () { editInputs(function (l) { l[i].hidden = !c.hidden; }); }
             }
         ];
         if (i > 0) {
-            options.push({ label: 'Move earlier', run: function () { editInputs(function (l) { l.splice(i - 1, 0, l.splice(i, 1)[0]); }); } });
+            options.push({ label: 'Sposta prima', run: function () { editInputs(function (l) { l.splice(i - 1, 0, l.splice(i, 1)[0]); }); } });
         }
         if (i < count - 1) {
-            options.push({ label: 'Move later', run: function () { editInputs(function (l) { l.splice(i + 1, 0, l.splice(i, 1)[0]); }); } });
+            options.push({ label: 'Sposta dopo', run: function () { editInputs(function (l) { l.splice(i + 1, 0, l.splice(i, 1)[0]); }); } });
         }
         options.push({
-            label: 'Remove', run: function () {
-                UI.menu('Remove ' + c.label + '?', [
-                    { label: 'Remove', run: function () { editInputs(function (l) { l.splice(i, 1); }); } },
-                    { label: 'Cancel' }
+            label: 'Elimina', run: function () {
+                UI.menu('Eliminare ' + c.label + '?', [
+                    { label: 'Elimina', run: function () { editInputs(function (l) { l.splice(i, 1); }); } },
+                    { label: 'Annulla' }
                 ]);
             }
         });
-        options.push({ label: 'Cancel' });
+        options.push({ label: 'Annulla' });
         UI.menu(c.label, options);
     }
 
@@ -598,9 +598,9 @@
         var used = {};
         Home.inputs().forEach(function (i) { used[i.hdmi] = true; });
         var port = [1, 2, 3, 4].find(function (n) { return !used[n]; }) || 1;
-        editInputs(function (l) { l.push({ hdmi: port, label: 'Console', brand: '' }); });
+        editInputs(function (l) { l.push({ hdmi: port, label: 'Dispositivo', brand: '' }); });
         var index = Home.inputs().length - 1;
-        rename('Console', function (name) { editInputs(function (l) { l[index].label = name; }); });
+        rename('Dispositivo', function (name) { editInputs(function (l) { l[index].label = name; }); });
     }
 
     // ---------- Rename dialog (uses Samsung's on-screen keyboard)
@@ -628,34 +628,34 @@
     function advancedEntries() {
         var entries = [
             {
-                label: 'Refresh app list', value: 'After installing or removing apps', run: function () {
-                    UI.toast('Refreshing the app list…');
-                    Home.reloadApps().then(function () { UI.toast('App list refreshed'); });
+                label: 'Aggiorna elenco app', value: 'Dopo aver installato o rimosso app', run: function () {
+                    UI.toast('Aggiorno l\'elenco delle app…');
+                    Home.reloadApps().then(function () { UI.toast('Elenco app aggiornato'); });
                 }
             }
         ];
         if (window.LAUNCHER_CONFIG.devLogUrl) {
             entries.push({
-                label: 'Export settings', value: 'Sends them to the Mac log', run: function () {
+                label: 'Esporta impostazioni', value: 'Le invia al log del computer', run: function () {
                     DevLog.log('Settings export', Prefs.get());
-                    UI.toast('Settings sent to the Mac log');
+                    UI.toast('Impostazioni inviate al log');
                 }
             });
         }
         entries.push({
-            label: 'Reset all settings', value: 'Back to the defaults', run: function () {
-                UI.menu('Reset all settings?', [
+            label: 'Ripristina tutto', value: 'Torna alle impostazioni iniziali', run: function () {
+                UI.menu('Ripristinare tutte le impostazioni?', [
                     {
-                        label: 'Reset', run: function () {
+                        label: 'Ripristina', run: function () {
                             Prefs.reset();
                             location.reload();
                         }
                     },
-                    { label: 'Cancel' }
+                    { label: 'Annulla' }
                 ]);
             }
         });
-        entries.push({ label: 'Lab', value: 'Developer tests', run: function () { UI.show('lab'); } });
+        entries.push({ label: 'Lab', value: 'Test per sviluppatori', run: function () { UI.show('lab'); } });
         return entries;
     }
 
@@ -663,17 +663,17 @@
 
     function init() {
         registerList('settings', overviewEntries,
-            [['OK', 'Change'], ['◀ ▶', 'Switch column'], ['Back', 'Home']], true);
-        registerList('advanced', advancedEntries, [['OK', 'Run'], ['Back', 'Settings']]);
+            [['OK', 'Modifica'], ['◀ ▶', 'Cambia colonna'], ['Indietro', 'Home']], true);
+        registerList('advanced', advancedEntries, [['OK', 'Esegui'], ['Indietro', 'Impostazioni']]);
         renderConsoles = registerList('consoles', consoleEntries,
-            [['OK', 'Options'], ['Back', 'Settings']]);
+            [['OK', 'Opzioni'], ['Indietro', 'Impostazioni']]);
 
         UI.register('bg', {
             el: $('bg-settings'),
             rows: function () { return chipRows($('bg-body')); },
             onShow: renderBackground,
             activate: activateBackground,
-            hints: [['OK', 'Select'], ['Back', 'Settings']]
+            hints: [['OK', 'Scegli'], ['Indietro', 'Impostazioni']]
         });
 
         UI.register('appearance', {
@@ -681,7 +681,7 @@
             rows: function () { return chipRows($('appearance-body')); },
             onShow: renderAppearance,
             activate: activateAppearance,
-            hints: [['OK', 'Select'], ['Back', 'Settings']]
+            hints: [['OK', 'Scegli'], ['Indietro', 'Impostazioni']]
         });
 
         UI.register('sound-settings', {
@@ -689,7 +689,7 @@
             rows: function () { return chipRows($('sound-body')); },
             onShow: renderSound,
             activate: activateSound,
-            hints: [['OK', 'Select / Preview'], ['Back', 'Settings']]
+            hints: [['OK', 'Scegli / Ascolta'], ['Indietro', 'Impostazioni']]
         });
 
         UI.register('screensaver-settings', {
@@ -697,7 +697,7 @@
             rows: function () { return chipRows($('screensaver-body')); },
             onShow: renderScreensaver,
             activate: activateScreensaver,
-            hints: [['OK', 'Select'], ['Back', 'Settings']]
+            hints: [['OK', 'Scegli'], ['Indietro', 'Impostazioni']]
         });
 
         UI.register('homeapps', {
@@ -716,12 +716,12 @@
             onBack: edBack,
             hints: function () {
                 if (ed.moving >= 0) {
-                    return [['▲ ▼', 'Reorder'], ['OK', 'Drop here'], ['Back', 'Cancel']];
+                    return [['▲ ▼', 'Riordina'], ['OK', 'Lascia qui'], ['Indietro', 'Annulla']];
                 }
                 return [
-                    ['OK', ed.col === 0 ? 'Options' : 'Add to Home'],
-                    ['◀ ▶', 'Switch column'],
-                    ['Back', 'Settings']
+                    ['OK', ed.col === 0 ? 'Opzioni' : 'Aggiungi alla Home'],
+                    ['◀ ▶', 'Cambia colonna'],
+                    ['Indietro', 'Impostazioni']
                 ];
             }
         });
@@ -730,7 +730,7 @@
             el: $('rename'),
             overlay: true,
             focusEl: function () { return $('rename-input'); },
-            hints: [['OK', 'Save'], ['Back', 'Cancel']],
+            hints: [['OK', 'Salva'], ['Indietro', 'Annulla']],
             onShow: function () {
                 setTimeout(function () {
                     var input = $('rename-input');

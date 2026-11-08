@@ -11,7 +11,7 @@
  *   onBack()    return true if Back was handled inside the view
  *   onFocus(el) called after focus moves
  *   overlay     shown on top of the previous view instead of replacing it
- *   hints       remote keys to show along the bottom: [['OK', 'Open'], ['Back', 'Home']].
+ *   hints       remote keys to show along the bottom: [['OK', 'Open'], ['Indietro', 'Home']].
  *               A function instead of an array is called on every show, for hints that depend
  *               on state. Omit for no bar.
  */
@@ -263,7 +263,7 @@
         register('menu', {
             el: $('menu'),
             overlay: true,
-            hints: [['OK', 'Select'], ['Back', 'Close']],
+            hints: [['OK', 'Scegli'], ['Indietro', 'Chiudi']],
             rows: function () { return children($('menu-list')).map(function (li) { return [li]; }); },
             activate: function (o) {
                 show(views.menu.from, { back: true });

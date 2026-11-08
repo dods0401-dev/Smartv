@@ -19,16 +19,13 @@ window.LAUNCHER_CONFIG = {
      * Le app non installate vengono saltate.
      */
     apps: [
-        { match: 'netflix', label: 'Netflix', brand: 'netflix' },
-        { match: 'prime ?video', label: 'Prime Video', brand: 'primevideo' },
-        { match: 'disney', label: 'Disney+', brand: 'disneyplus' },
-        { match: 'raiplay', label: 'RaiPlay', brand: 'raiplay' },
-        { match: 'mediaset|infinity', label: 'Mediaset Infinity', brand: 'mediaset' },
         { match: 'dazn', label: 'DAZN', brand: 'dazn' },
-        { match: '(^|[^a-z])now([^a-z]|$)|nowtv', label: 'NOW', brand: 'now' },
-        { match: 'youtube|cobalt-yt', label: 'YouTube', brand: 'youtube' },
         { match: 'spotify', label: 'Spotify', brand: 'spotify' },
-        { match: 'tv ?plus|tvplus', label: 'Samsung TV Plus', brand: 'tvplus' }
+        { match: 'netflix', label: 'Netflix', brand: 'netflix' },
+        { match: 'hbo|(^|\\s)max(\\s|$)', label: 'HBO Max', brand: 'max' },
+        { match: 'youtube|cobalt-yt', label: 'YouTube', brand: 'youtube' },
+        { match: 'prime ?video', label: 'Prime Video', brand: 'primevideo' },
+        { match: 'disney', label: 'Disney+', brand: 'disneyplus' }
     ],
 
     /*
@@ -62,8 +59,8 @@ window.LAUNCHER_CONFIG = {
      * not something you type with a remote.
      */
     weather: {
-        latitude: null,
-        longitude: null,
+        latitude: 45.46,        // Milano
+        longitude: 9.19,
         unit: 'celsius'         // 'celsius' | 'fahrenheit'
     },
 
@@ -81,9 +78,9 @@ window.LAUNCHER_CONFIG = {
         volume: 0.08,
         minGapMs: 45,
         presets: {
-            soft: { label: 'Soft', freq: 620, ms: 30, type: 'sine' },
-            warm: { label: 'Warm', freq: 520, ms: 44, type: 'triangle' },
-            bright: { label: 'Bright', freq: 1040, ms: 30, type: 'triangle' }
+            soft: { label: 'Morbido', freq: 620, ms: 30, type: 'sine' },
+            warm: { label: 'Caldo', freq: 520, ms: 44, type: 'triangle' },
+            bright: { label: 'Brillante', freq: 1040, ms: 30, type: 'triangle' }
         },
         move: { freq: 880, ms: 38, type: 'triangle' },
         edge: { freq: 200, ms: 70, type: 'sine' },
