@@ -11,6 +11,8 @@
         <!-- Sfondo: tele su cui wallpaper.js disegna foto e velo scuro una volta per cambio. -->
         <canvas id="bg" width="1920" height="1080"></canvas>
         <canvas id="bg-next" width="1920" height="1080"></canvas>
+        <!-- Luce del colore dell'app selezionata (ambient.js). -->
+        <canvas id="ambient" width="192" height="108"></canvas>
         <!-- Sfondo sfocato dietro le pagine delle Impostazioni (glass.js). -->
         <canvas id="bg-blur" width="96" height="54"></canvas>
 
@@ -39,9 +41,16 @@
             <div id="dock" class="dock">
                 <div class="glass"><canvas class="glass-bg" width="96" height="54"></canvas></div>
                 <div class="dock-clip">
+                    <!-- Informazioni nel vetro (info.js): programma in onda e partite. -->
+                    <div id="info" class="info-row">
+                        <span id="info-tv" class="info-item"></span>
+                        <span id="info-sport" class="info-item"></span>
+                    </div>
                     <div id="apps-section" class="shelf">
                         <h2>Le tue app</h2>
+                        <!-- Prima riga: le preferite, grandi. Seconda: le altre, piccole. -->
                         <div class="row-viewport"><div id="apps-row" class="row-track"></div></div>
+                        <div class="row-viewport row-small"><div id="apps-row2" class="row-track"></div></div>
                     </div>
                     <div id="inputs-section" class="shelf">
                         <h2>Dispositivi</h2>
@@ -88,7 +97,7 @@
         </section>
 
         <section id="style" class="view page hidden">
-            <header class="page-head"><h1>Frasi e movimento</h1></header>
+            <header class="page-head"><h1>Home</h1></header>
             <div id="style-body" class="settings-body compact"></div>
         </section>
 
@@ -142,6 +151,7 @@
             <div class="ss-scrim"></div>
             <div id="ss-caption" class="ss-caption">
                 <div id="ss-title" class="ss-title"></div>
+                <div id="ss-credit" class="ss-credit"></div>
             </div>
             <div id="ss-clock" class="ss-clock pos-0">
                 <div id="ss-weather" class="ss-weather hidden">
@@ -199,6 +209,8 @@
     <script src="js/glass.js"></script>
     <script src="js/icons.js"></script>
     <script src="js/phrases.js"></script>
+    <script src="js/ambient.js"></script>
+    <script src="js/info.js"></script>
     <script src="js/weather.js"></script>
     <script src="js/sound.js"></script>
     <script src="js/ui.js"></script>

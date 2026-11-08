@@ -5,6 +5,7 @@
     var CACHE_KEY = 'arn0.apps.v1';
     var REFRESH_AFTER_MS = 5 * 60 * 1000;
     var GRID_COLS = 5;
+    var FAVOURITES = 5;
 
     var cfg = window.LAUNCHER_CONFIG;
     var log = DevLog.log;
@@ -156,22 +157,25 @@
 
     function renderHome() {
         var row = $('apps-row');
+        var row2 = $('apps-row2');
         row.innerHTML = '';
+        row2.innerHTML = '';
         var items = homeItems();
         if (!items.length) items = Apps.allSorted(state.apps, false).slice(0, 8);
-        items.forEach(function (item) {
+        // Le prime FAVOURITES app nella riga grande, le altre e "Tutte le app" in quella piccola.
+        items.forEach(function (item, i) {
             item.onHome = true;   // solo le app della Home cercano l'icona su internet
-            row.appendChild(appTile(item));
+            (i < FAVOURITES ? row : row2).appendChild(appTile(item));
         });
-        row.appendChild(allAppsTile());
+        row2.appendChild(allAppsTile());
 
-        var row2 = $('inputs-row');
-        row2.innerHTML = '';
+        var row3 = $('inputs-row');
+        row3.innerHTML = '';
         inputs().forEach(function (input) {
-            if (!input.hidden) row2.appendChild(inputTile(input));
+            if (!input.hidden) row3.appendChild(inputTile(input));
         });
-        $('inputs-section').classList.toggle('hidden', !row2.children.length);
-        $('home').classList.toggle('no-inputs', !row2.children.length);
+        $('inputs-section').classList.toggle('hidden', !row3.children.length);
+        $('home').classList.toggle('no-inputs', !row3.children.length);
         Glass.sync();
         applyInputStatus();
         if (UI.isVisible('home')) UI.refresh();
@@ -413,7 +417,7 @@
             startRow: 1,
             hints: [['OK', 'Apri'], ['▲', 'Impostazioni']],
             rows: function () {
-                return [[$('gear')], UI.children($('apps-row')), UI.children($('inputs-row'))];
+                return [[$('gear')], UI.children($('apps-row')), UI.children($('apps-row2')), UI.children($('inputs-row'))];
             },
             activate: function (item) {
                 if (item.kind === 'app') launchApp(item);
@@ -423,6 +427,7 @@
                 else if (item.kind === 'settings') UI.show('settings');
             },
             onShow: function (opts) { Glass.enter(!opts.back); },
+            onFocus: function (el) { Ambient.focus(el && el._item); },
             // Home is the root: Back does nothing.
             onBack: function () { return true; }
         });

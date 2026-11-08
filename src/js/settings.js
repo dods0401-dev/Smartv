@@ -104,12 +104,6 @@
         return w ? w.title : 'Foto';
     }
 
-    function styleSummary() {
-        var e = Prefs.get().phrases.every;
-        var opt = Phrases.EVERY.find(function (o) { return o.key === e; }) || Phrases.EVERY[1];
-        return 'Frasi: ' + opt.label.toLowerCase();
-    }
-
     function overviewEntries() {
         // Solo quello che si usa davvero; il resto sta in "Altro" (advancedEntries).
         return [
@@ -206,6 +200,8 @@
     function styleBlocks() {
         return [
             { title: 'Cambia frase ogni', group: 'phrases', key: 'every', options: Phrases.EVERY.map(function (s) { return [s.key, s.label]; }) },
+            { title: 'Informazioni nel vetro', group: 'info', key: 'show', options: Info.SHOW.map(function (s) { return [s.key, s.label]; }) },
+            { title: 'Modalità sera (dalle 22)', key: 'night', options: [['auto', 'Automatica'], ['off', 'Spenta']] },
             { title: 'Movimento', key: 'motion', options: [['on', 'Attivo'], ['off', 'Ridotto (TV più veloce)']] }
         ];
     }
@@ -235,6 +231,8 @@
         Prefs.get()[item.group || 'appearance'][item.key] = item.value;
         Prefs.save();
         Appearance.apply();
+        if (item.group === 'info') Info.refresh();
+        if (item.key === 'night') Ambient.checkNight();
         Home.updateClock();
         renderAppearance();
         UI.refresh();
@@ -642,7 +640,7 @@
         var a = Prefs.get().appearance;
         var shown = Home.inputs().filter(function (i) { return !i.hidden; }).length;
         var entries = [
-            { label: 'Frasi e movimento', value: styleSummary(), run: function () { UI.show('style'); } },
+            { label: 'Home', value: 'Frasi, informazioni, sera', run: function () { UI.show('style'); } },
             { label: 'Aspetto', value: Appearance.font(a.font).label + ' · ' + (a.clock === '12h' ? '12 ore' : '24 ore'), run: function () { UI.show('appearance'); } },
             { label: 'Suono dei tasti', value: soundSummary(), run: function () { UI.show('sound-settings'); } },
             { label: 'Dispositivi HDMI', value: shown + ' nella Home', run: function () { UI.show('consoles'); } },

@@ -56,6 +56,17 @@ window.LAUNCHER_CONFIG = {
     },
 
     /*
+     * Informazioni nella parte alta del pannello di vetro (info.js), scaricate dalla TV.
+     *   channel: canale di cui mostrare il programma in onda, come nel sito RaiPlay
+     *            ('rai-1', 'rai-2', 'rai-3'…); null per non mostrarlo
+     *   league:  campionato per le partite ('ita.1' = Serie A); null per non mostrarlo
+     */
+    info: {
+        channel: 'rai-1',
+        league: 'ita.1'
+    },
+
+    /*
      * Foto di sfondo scaricate dalla TV (le "foto del giorno" di Bing, paesaggi reali).
      *   quality: 'hd' (1920x1080, quanto disegna la Home) | 'uhd' (3840x2160: più pesante da
      *            scaricare e decodificare, sullo schermo non cambia nulla perché la Home è a 1080p)

@@ -1408,3 +1408,107 @@ html.preview, html.preview body {
     top: 48px;
     bottom: auto;
 }
+
+/* =====================================================================================
+ * Due righe di app, informazioni nel vetro, luce dell'app selezionata, modalità sera
+ * ===================================================================================== */
+
+/* Frase un po' più piccola per lasciare spazio al pannello più alto. */
+.clock { top: 112px; }
+#greeting { font-size: 68px; margin-bottom: 22px; }
+
+.no-inputs .dock { top: 392px; bottom: 104px; }
+
+.dock-clip { padding-top: 26px; }
+
+/* Riga informazioni in cima al vetro. */
+.info-row {
+    display: none;
+    height: 40px;
+    padding: 0 56px;
+    margin-bottom: 18px;
+    font-size: 25px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.has-info .info-row { display: flex; align-items: center; }
+
+.info-item:empty { display: none; }
+
+.info-item + .info-item:not(:empty)::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin: 0 22px 4px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Senza riga informazioni il pannello resta della stessa altezza: le app scendono un po'. */
+.dock-clip { display: flex; flex-direction: column; }
+#home:not(.has-info) .dock-clip { justify-content: center; padding-top: 0; }
+
+/* Seconda riga: tessere piccole. */
+.row-small { margin-top: 6px; }
+.row-small .app { width: 220px; margin-right: 26px; }
+.row-small .tile { height: 124px; border-radius: 14px; }
+.row-small .app .label { margin-top: 12px; font-size: 22px; }
+.row-small .wordmark { font-size: 30px; }
+.row-small .all-tile svg { width: 48px; height: 48px; margin: -24px 0 0 -24px; }
+.row-small .app.focused .tile { transform: translateY(-6px) scale(1.1); }
+
+/* Il nome compare solo sotto l'app selezionata: lo spazio resta riservato. */
+.dock .app .label { visibility: hidden; }
+.dock .app.focused .label { visibility: visible; }
+
+/* Luce del colore dell'app selezionata, sopra la foto e sotto la Home. */
+#ambient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 1080px;
+    opacity: 0;
+    transition: opacity 0.25s ease-out;
+    pointer-events: none;
+}
+
+#ambient.show {
+    opacity: 1;
+    transition: opacity 0.7s ease-in-out;
+}
+
+.on-page #ambient { visibility: hidden; }
+
+/* Modalità sera: foto più scura e Home più tenue. Il fondo dello stage è nero, quindi basta
+   abbassare l'opacità dello sfondo (nessuna sfumatura in più da comporre). */
+.night #bg,
+.night #bg-next { opacity: 0.55; }
+.night #bg-next:not(.show) { opacity: 0; }
+.night #home { opacity: 0.88; }
+.night #ambient.show { opacity: 0.6; }
+
+/* ---------- Salvaschermo "cornice": nome del posto grande, ora piccola ---------- */
+
+.ss-title {
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: none;
+    color: #fff;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.ss-credit {
+    margin-top: 8px;
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.ss-time { font-size: 56px; }
+
+.no-inputs .dock { top: 440px; bottom: 104px; }

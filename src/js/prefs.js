@@ -36,7 +36,12 @@
                 locale: cfg.locale || 'en-GB',
                 font: 'manrope',        // see Appearance.FONTS
                 names: 'focused',       // app names under tiles: 'always' | 'focused' | 'never'
-                motion: 'on'            // 'on' | 'off': animazioni di sfondo, entrata e riflessi
+                motion: 'on',           // 'on' | 'off': animazioni di sfondo, entrata e riflessi
+                night: 'auto'           // 'auto': dalle 22 alle 6 Home più scura | 'off'
+            },
+            // Informazioni nel vetro (info.js): 'tutto' | 'tv' | 'calcio' | 'spente'
+            info: {
+                show: 'tutto'
             },
             // Frasi divertenti al posto del saluto (phrases.js)
             phrases: {
@@ -65,6 +70,7 @@
                 // rotazione nuovi; app, dispositivi e il resto restano com'erano.
                 if (saved.layout === LAYOUT) merge(prefs.wallpaper, saved.wallpaper);
                 merge(prefs.phrases, saved.phrases);
+                merge(prefs.info, saved.info);
                 merge(prefs.screensaver, saved.screensaver);
                 merge(prefs.appearance, saved.appearance);
                 // Anche l'elenco delle app riparte da config.js quando cambia l'impostazione di base.

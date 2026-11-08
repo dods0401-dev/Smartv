@@ -211,6 +211,7 @@
 
     function caption(w) {
         $('ss-title').textContent = w ? w.title : '';
+        $('ss-credit').textContent = w && w.credit ? w.credit : '';
         $('ss-caption').classList.toggle('hidden', !w);
     }
 

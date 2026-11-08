@@ -40,6 +40,22 @@
         ]
     };
 
+    // Quando è selezionata un'app (ambient.js), una frase in tema al posto di quella dell'ora.
+    var APPS = {
+        tv: ['Vediamo cosa c\'è in TV.', 'Telegiornale o quiz?'],
+        dazn: ['Chi gioca stasera?', 'Partita o solo gli highlights?'],
+        netflix: ['Cosa c\'è di nuovo su Netflix?', 'Serie nuova o la solita?'],
+        hbomax: ['Serata da serie HBO?', 'Quella serie di cui parlano tutti?'],
+        primevideo: ['Vediamo cosa c\'è su Prime.', 'Film o serie, stasera?'],
+        disneyplus: ['Cartoni o Marvel?', 'Un classico Disney?'],
+        appletv: ['Qualcosa di bello su Apple TV?'],
+        raiplay: ['Recuperiamo qualcosa su RaiPlay?', 'Quella puntata che ci siamo persi?'],
+        youtube: ['Solo un video. Poi un altro.', 'Cosa cerchiamo su YouTube?'],
+        spotify: ['Un po\' di musica?', 'Che playlist mettiamo?']
+    };
+    var appKey = null;
+    var appPhrase = '';
+
     var EVERY = [
         { key: '5m', label: '5 min', ms: 5 * 60 * 1000 },
         { key: '15m', label: '15 min', ms: 15 * 60 * 1000 },
@@ -56,7 +72,7 @@
         var h = d.getHours();
         if (h >= 5 && h < 12) return 'mattina';
         if (h >= 12 && h < 18) return 'pomeriggio';
-        if (h >= 18 && h < 23) return 'sera';
+        if (h >= 18 && h < 22) return 'sera';
         return 'notte';
     }
 
@@ -90,6 +106,7 @@
 
     // Chiamata dall'orologio ogni 10 secondi: cambia solo se è cambiata la fascia o è ora.
     function text(d) {
+        if (appKey) return appPhrase;
         var ms = every();
         if (!current || slot(d) !== slotNow || (ms && d.getTime() - since >= ms)) change(d);
         return current;
@@ -102,8 +119,24 @@
         if (el) el.textContent = current;
     }
 
+    // key: chiave del marchio (brands.js) o null per tornare alla frase dell'ora.
+    function forApp(key) {
+        var list = key && APPS[key];
+        var next = list ? key : null;
+        if (next === appKey) return;
+        appKey = next;
+        if (list) appPhrase = list[Math.floor(Math.random() * list.length)];
+        var el = document.getElementById('greeting');
+        if (!el) return;
+        el.textContent = appKey ? appPhrase : text(new Date());
+        el.classList.remove('swap');
+        void el.offsetWidth;
+        el.classList.add('swap');
+    }
+
     window.Phrases = {
         EVERY: EVERY,
+        forApp: forApp,
         text: text,
         fresh: fresh
     };

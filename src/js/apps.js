@@ -110,7 +110,8 @@
             brand: entry.brand ? findBrand(entry.brand) : findBrand(app),
             iconPath: app.iconPath || '',
             icon: entry.icon || '',
-            iconSearch: entry.iconSearch || ''
+            iconSearch: entry.iconSearch || '',
+            backdrop: entry.backdrop || ''
         };
     }
 
