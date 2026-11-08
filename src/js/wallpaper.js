@@ -32,11 +32,14 @@
         var t = ++token;
         if (!w) {
             bg().style.backgroundImage = '';
+            if (window.Glass) Glass.setWallpaper(null);
             return;
         }
         var img = new Image();
         img.onload = function () {
-            if (t === token) bg().style.backgroundImage = 'url("' + w.file + '")';
+            if (t !== token) return;
+            bg().style.backgroundImage = 'url("' + w.file + '")';
+            if (window.Glass) Glass.setWallpaper(w);
         };
         img.onerror = function () { DevLog.log('Wallpaper failed to load: ' + w.file); };
         img.src = w.file;

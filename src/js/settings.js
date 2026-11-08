@@ -196,6 +196,7 @@
             { title: 'Data', key: 'showDate', options: [[true, 'Mostra'], [false, 'Nascondi']] },
             { title: 'Lingua della data', key: 'locale', options: Appearance.LOCALES.map(function (l) { return [l.key, l.label]; }) },
             { title: 'Carattere', key: 'font', options: Appearance.FONTS.map(function (f) { return [f.key, f.label, f.family]; }) },
+            { title: 'Movimento', key: 'motion', options: [['on', 'Attivo'], ['off', 'Ridotto (TV più veloce)']] },
             { title: 'Nomi delle app', key: 'names', options: [['always', 'Sempre'], ['focused', 'Quando selezionata'], ['never', 'Mai']] }
         ];
     }

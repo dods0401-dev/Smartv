@@ -179,6 +179,7 @@
         });
         $('inputs-section').classList.toggle('hidden', !row2.children.length);
         $('home').classList.toggle('no-inputs', !row2.children.length);
+        Glass.sync();
         applyInputStatus();
         if (UI.isVisible('home')) UI.refresh();
     }
@@ -420,6 +421,7 @@
                 else if (item.kind === 'input') openInput(item);
                 else if (item.kind === 'settings') UI.show('settings');
             },
+            onShow: function (opts) { Glass.enter(!opts.back); },
             // Home is the root: Back does nothing.
             onBack: function () { return true; }
         });
@@ -474,7 +476,10 @@
             }
             updateClock();
             refreshInputStatus();
-            if (UI.isVisible('home')) Wallpaper.homeShown();
+            if (UI.isVisible('home')) {
+                Wallpaper.homeShown();
+                Glass.enter(true);
+            }
             if (Date.now() - state.lastFetch > REFRESH_AFTER_MS) setTimeout(loadApps, 1500);
         });
         // With a cache, let the first frames and key presses through before the slow app list.

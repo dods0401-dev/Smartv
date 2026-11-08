@@ -60,6 +60,7 @@
         home.classList.toggle('names-focused', p.names === 'focused');
         home.classList.toggle('names-never', p.names === 'never');
         home.classList.toggle('no-date', !p.showDate);
+        document.documentElement.classList.toggle('no-motion', p.motion === 'off');
     }
 
     window.Appearance = {

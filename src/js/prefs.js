@@ -33,7 +33,8 @@
                 showDate: true,
                 locale: cfg.locale || 'en-GB',
                 font: 'manrope',        // see Appearance.FONTS
-                names: 'always'         // app names under tiles: 'always' | 'focused' | 'never'
+                names: 'focused',       // app names under tiles: 'always' | 'focused' | 'never'
+                motion: 'on'            // 'on' | 'off': animazioni di sfondo, entrata e riflessi
             },
             home: null,                 // [{ id, label, brand }] once edited; null = config.js apps
             inputs: null                // [{ hdmi, label, brand, method, hidden }] once edited; null = config.js

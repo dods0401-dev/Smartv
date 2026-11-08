@@ -46,7 +46,7 @@ window.LAUNCHER_CONFIG = {
     theme: {
         // Starting wallpaper (key from js/wallpapers.js), or null for none (plain gradient).
         // Changed from Settings → Background; the TV remembers the choice.
-        wallpaper: 'coast'
+        wallpaper: 'seta'
     },
 
     /*
@@ -59,7 +59,8 @@ window.LAUNCHER_CONFIG = {
      * not something you type with a remote.
      */
     weather: {
-        latitude: 45.46,        // Milano
+        place: 'Milano',        // nome mostrato accanto alla temperatura nella Home
+        latitude: 45.46,
         longitude: 9.19,
         unit: 'celsius'         // 'celsius' | 'fahrenheit'
     },
