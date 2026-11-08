@@ -250,6 +250,13 @@
         });
     }
 
+    function openLiveTv() {
+        UI.toast('Apro i canali TV…');
+        runLogged('Canali TV', Inputs.openTv()).catch(function (err) {
+            UI.toast('Impossibile aprire i canali TV: ' + DevLog.errorText(err));
+        });
+    }
+
     function openInput(item, method) {
         method = method || item.method || cfg.inputMethod;
         UI.toast('Passo a ' + item.label + '…');
@@ -410,6 +417,7 @@
             },
             activate: function (item) {
                 if (item.kind === 'app') launchApp(item);
+                else if (item.kind === 'tv') openLiveTv();
                 else if (item.kind === 'all') UI.show('all');
                 else if (item.kind === 'input') openInput(item);
                 else if (item.kind === 'settings') UI.show('settings');

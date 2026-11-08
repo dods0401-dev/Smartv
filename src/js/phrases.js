@@ -8,36 +8,35 @@
 
     var PHRASES = {
         mattina: [
-            'Caffè prima, decisioni dopo.',
-            'La sveglia ha suonato. Noi no.',
-            'Oggi si fa tutto. Forse domani.',
-            'Colazione dei campioni: divano e telecomando.',
-            'Buongiorno a chi ha già perso le chiavi.',
-            'Il divano ha già prenotato il pomeriggio.'
+            'Il caffè l\'hai già preso?',
+            'Troppo presto per decidere qualsiasi cosa.',
+            'Ancora cinque minuti, dai.',
+            'Oggi si esce. Forse.',
+            'Buongiorno, ma piano.',
+            'Ancora in pigiama? Va benissimo.'
         ],
         pomeriggio: [
-            'Un episodio e poi si lavora. Promesso.',
-            'Il divano ha chiesto di te.',
-            'Pomeriggio produttivo: abbiamo acceso la TV.',
-            'Lo sport di oggi? Lo zapping.',
-            'Pausa pranzo diventata pausa pomeriggio.',
-            'Pisolino o serie? Perché non entrambi.'
+            'Una puntata e poi basta, giuro.',
+            'Il pisolino è sottovalutato.',
+            'Ma sono già le cinque?',
+            'Qualcuno ha visto il telecomando?',
+            'Oggi vince il divano.',
+            'Si lavora meglio dopo una puntata. Credo.'
         ],
         sera: [
-            'Scegliere il film: tempo stimato un\'ora.',
-            'Chi tiene il telecomando, comanda.',
-            'Cena pronta? Allora, cosa guardiamo?',
-            'Ancora un episodio. L\'ultimo. Davvero.',
-            'Popcorn: obbligatori.',
-            'Modalità divano: attivata.',
-            'Stasera niente spoiler, intesi?'
+            'Allora, cosa guardiamo?',
+            'Mezz\'ora per scegliere il film, come sempre.',
+            'Pizza e serie, piano perfetto.',
+            'Chi ha il telecomando decide.',
+            'Stasera niente spoiler, eh.',
+            'Dai, ancora una.'
         ],
         notte: [
-            'Domani ci pentiremo. Stasera no.',
-            'È tardi, ma il finale ci aspetta.',
-            'Il letto può aspettare. Il colpo di scena no.',
-            'Ufficialmente è troppo tardi. Ufficiosamente, un altro.',
-            'Silenzio: i vicini dormono, noi no.'
+            'Domani mattina sarà dura.',
+            'Ultima puntata. Davvero l\'ultima.',
+            'Volume basso, i vicini dormono.',
+            'Ma che ore sono?',
+            'Il finale non si guarda da solo.'
         ]
     };
 

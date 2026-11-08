@@ -15,6 +15,7 @@
         'ZODRT12q2l.WebAccountExtension', 'ByJlgt0XeD.CastSettingsApp', 'tv6pbVMQFF.PrivacyChoices',
         '2022ePop01.SmartTV', 'w2VwCK465D.OTApp', 'J9fZJDMi1v.SecurityCenter'
     ];
+    var LIVE_TV = 'live-tv';
     var NOISE = /service|worker|preview|promotion|plugin|launcher|test|sdk|^ep[ -]|factory|daemon|dummy|agent|e-?manual|account|adplayer|privacy|security/i;
 
     function withTimeout(promise, ms, what) {
@@ -68,6 +69,11 @@
         var used = {};
         var out = [];
         (cfg.apps || []).forEach(function (entry) {
+            // "Canali TV" non è un'app installata ma l'antenna (Inputs.openTv).
+            if (entry.id === LIVE_TV) {
+                out.push({ kind: 'tv', id: LIVE_TV, label: entry.label || 'Canali TV', brand: findBrand(entry.brand || 'tv') });
+                return;
+            }
             var re = entry.match ? new RegExp(entry.match, 'i') : null;
             var candidates = apps.filter(function (a) {
                 if (used[a.id]) return false;

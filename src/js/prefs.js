@@ -8,7 +8,7 @@
     var KEY = 'arn0.prefs.v1';
     var LEGACY_WALLPAPER_KEY = 'arn0.wallpaper';
     // Aumentato quando cambia l'impostazione di base della Home (vedi load()).
-    var LAYOUT = 3;
+    var LAYOUT = 4;
 
     function defaults() {
         var cfg = window.LAUNCHER_CONFIG || {};
@@ -67,7 +67,8 @@
                 merge(prefs.phrases, saved.phrases);
                 merge(prefs.screensaver, saved.screensaver);
                 merge(prefs.appearance, saved.appearance);
-                if (Array.isArray(saved.home) && saved.home.length) prefs.home = saved.home;
+                // Anche l'elenco delle app riparte da config.js quando cambia l'impostazione di base.
+                if (saved.layout === LAYOUT && Array.isArray(saved.home) && saved.home.length) prefs.home = saved.home;
                 if (Array.isArray(saved.inputs)) prefs.inputs = saved.inputs;
             } else {
                 var legacy = localStorage.getItem(LEGACY_WALLPAPER_KEY);

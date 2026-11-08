@@ -75,7 +75,20 @@
         });
     }
 
+    /*
+     * Canali TV: passa all'antenna (sorgente "TV") e apre il visore Samsung, come per gli HDMI.
+     * Se la TV non elenca la sorgente, apre comunque il visore, che mostra l'ultimo canale.
+     */
+    function openTv() {
+        return sources().then(function (info) {
+            var all = (info.connected || []).concat(info.disconnected || []);
+            var src = all.find(function (s) { return s.type === 'TV'; });
+            return src ? setSource(src) : null;
+        }).catch(function () { return null; }).then(openViewer);
+    }
+
     window.Inputs = {
+        openTv: openTv,
         sources: sources,
         hdmiStatus: hdmiStatus,
         current: current,

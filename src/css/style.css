@@ -1402,3 +1402,9 @@ html.preview, html.preview body {
 .no-motion .tile::after {
     animation: none !important;
 }
+
+/* Gli avvisi in alto al centro, così non coprono il pannello delle app. */
+#toast {
+    top: 48px;
+    bottom: auto;
+}

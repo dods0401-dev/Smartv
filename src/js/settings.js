@@ -111,18 +111,13 @@
     }
 
     function overviewEntries() {
-        var a = Prefs.get().appearance;
-        var shown = Home.inputs().filter(function (i) { return !i.hidden; }).length;
+        // Solo quello che si usa davvero; il resto sta in "Altro" (advancedEntries).
         return [
-            { label: 'Home', value: styleSummary(), run: function () { UI.show('style'); } },
-            { label: 'Sfondo', value: wallpaperSummary(), run: function () { UI.show('bg'); } },
             { label: 'App nella Home', value: Home.homeItems().length + ' app', run: function () { UI.show('homeapps'); } },
-            { label: 'Dispositivi HDMI', value: shown + ' nella Home', run: function () { UI.show('consoles'); } },
-            { label: 'Aspetto', value: Appearance.font(a.font).label + ' · ' + (a.clock === '12h' ? '12 ore' : '24 ore'), run: function () { UI.show('appearance'); } },
-            { label: 'Suono di navigazione', value: soundSummary(), run: function () { UI.show('sound-settings'); } },
+            { label: 'Sfondo', value: wallpaperSummary(), run: function () { UI.show('bg'); } },
             { label: 'Salvaschermo', value: screensaverSummary(), run: function () { UI.show('screensaver-settings'); } },
-            { label: 'Home Samsung', value: 'Smart Hub e impostazioni TV', run: openSamsungHome },
-            { label: 'Avanzate', value: 'Aggiorna, ripristina, Lab', run: function () { UI.show('advanced'); } }
+            { label: 'Impostazioni della TV', value: 'Samsung', run: openSamsungHome },
+            { label: 'Altro', value: 'Frasi, aspetto, suoni, HDMI…', run: function () { UI.show('advanced'); } }
         ];
     }
 
@@ -644,9 +639,15 @@
     // ---------- Advanced
 
     function advancedEntries() {
+        var a = Prefs.get().appearance;
+        var shown = Home.inputs().filter(function (i) { return !i.hidden; }).length;
         var entries = [
+            { label: 'Frasi e movimento', value: styleSummary(), run: function () { UI.show('style'); } },
+            { label: 'Aspetto', value: Appearance.font(a.font).label + ' · ' + (a.clock === '12h' ? '12 ore' : '24 ore'), run: function () { UI.show('appearance'); } },
+            { label: 'Suono dei tasti', value: soundSummary(), run: function () { UI.show('sound-settings'); } },
+            { label: 'Dispositivi HDMI', value: shown + ' nella Home', run: function () { UI.show('consoles'); } },
             {
-                label: 'Aggiorna elenco app', value: 'Dopo aver installato o rimosso app', run: function () {
+                label: 'Aggiorna elenco app', value: 'Dopo nuove app', run: function () {
                     UI.toast('Aggiorno l\'elenco delle app…');
                     Home.reloadApps().then(function () { UI.toast('Elenco app aggiornato'); });
                 }
@@ -691,9 +692,9 @@
     // ---------- Registration
 
     function init() {
-        registerList('settings', overviewEntries,
-            [['OK', 'Modifica'], ['◀ ▶', 'Cambia colonna'], ['Indietro', 'Home']], true);
-        registerList('advanced', advancedEntries, [['OK', 'Esegui'], ['Indietro', 'Impostazioni']]);
+        registerList('settings', overviewEntries, [['OK', 'Apri'], ['Indietro', 'Home']]);
+        registerList('advanced', advancedEntries,
+            [['OK', 'Apri'], ['◀ ▶', 'Cambia colonna'], ['Indietro', 'Impostazioni']], true);
         renderConsoles = registerList('consoles', consoleEntries,
             [['OK', 'Opzioni'], ['Indietro', 'Impostazioni']]);
 

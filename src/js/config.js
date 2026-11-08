@@ -13,19 +13,23 @@
  */
 window.LAUNCHER_CONFIG = {
     /*
-     * Selezione per una TV italiana (Samsung UE55U8000F). Si usa `match` invece di `id` perché gli
+     * Selezione per una TV italiana (Samsung UE55U8000F). `live-tv` è speciale: apre i canali
+     * dell'antenna invece di un'app. Si usa `match` invece di `id` perché gli
      * id esatti cambiano da TV a TV: appena la launcher gira sulla TV, la schermata "Tutte le app"
      * mostra l'id dell'app selezionata e conviene sostituire qui `match` con `id`.
      * Le app non installate vengono saltate.
      */
     apps: [
+        { id: 'live-tv', label: 'Canali TV', brand: 'tv' },
         { match: 'dazn', label: 'DAZN', brand: 'dazn' },
-        { match: 'spotify', label: 'Spotify', brand: 'spotify' },
         { match: 'netflix', label: 'Netflix', brand: 'netflix' },
-        { match: 'hbo|(^|\\s)max(\\s|$)', label: 'HBO Max', brand: 'max' },
-        { match: 'youtube|cobalt-yt', label: 'YouTube', brand: 'youtube' },
+        { match: 'hbo|(^|\\s)max(\\s|$)', label: 'HBO Max', brand: 'hbomax' },
         { match: 'prime ?video', label: 'Prime Video', brand: 'primevideo' },
-        { match: 'disney', label: 'Disney+', brand: 'disneyplus' }
+        { match: 'disney', label: 'Disney+', brand: 'disneyplus' },
+        { match: 'apple ?tv|aria-video', label: 'Apple TV', brand: 'appletv' },
+        { match: 'raiplay|rai ?play', label: 'RaiPlay', brand: 'raiplay' },
+        { match: 'youtube|cobalt-yt', label: 'YouTube', brand: 'youtube' },
+        { match: 'spotify', label: 'Spotify', brand: 'spotify' }
     ],
 
     /*
