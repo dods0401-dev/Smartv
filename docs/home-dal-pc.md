@@ -3,8 +3,8 @@
 Obiettivo: fare in modo che il tasto Home del telecomando apra Home TV invece della Home Samsung,
 con un modo sicuro per tornare indietro.
 
-**Stato: fase 1 (sola lettura).** Nessun passo di questo documento è stato ancora provato sulla
-TV di casa (Samsung UE55U8000FUXZT, 2025). Il metodo del progetto originale è stato provato solo
+**Stato: fermo dopo la fase 1.** La fase 1 è stata eseguita sulla TV di casa (Samsung
+UE55U8000FUXZT, 2025): vedi "Esito della fase 1". Le fasi 2 e 3 non sono state tentate. Il metodo del progetto originale è stato provato solo
 su una Q70B del 2022 con Tizen 6.5 (vedi `docs/setup-tv.md`).
 
 ## Perché per fasi
@@ -46,6 +46,28 @@ Da guardare nel risultato di `sdb capability`:
 | `sdbd_rootperm`, `can_launch`, `secure_protocol` | cosa permette la Modalità sviluppatore |
 
 E se `sdb shell` risponde `shell-ok` o rifiuta.
+
+## Esito della fase 1 (8 novembre 2026)
+
+`sdb connect` e `sdb devices` funzionano. Da `sdb capability`:
+
+| Voce | Valore | Riferimento (Q70B) |
+| --- | --- | --- |
+| `platform_version` | 9.0 | 6.5 |
+| `cpu_arch` / `architecture` | armv7 / 32 | armv7 / 32 |
+| `sdbd_rootperm` | disabled | nessun root neanche lì |
+| `intershell_support` | disabled | — |
+| `secure_protocol` | enabled | — |
+| `netcoredbg_support`, `pkgcmd_debugmode` | enabled | — |
+
+`sdb shell "echo shell-ok"` non restituisce nulla: **la TV non esegue comandi dal PC**. Il metodo
+originale ha bisogno proprio di questo (e di un "runner" che il progetto originale non pubblica),
+quindi le fasi 2 e 3 così come sono descritte qui **non si possono fare** su questa TV.
+
+Resterebbe solo un'idea non verificata: impacchettare `native/Query.cs` come app .NET per TV
+(TPK) e lanciarla da Home TV, per vedere se su Tizen 9 un'app può anche solo leggere quelle
+impostazioni. È stata scartata: molto lavoro di prove sulla TV, e poche probabilità che il sistema
+lo permetta. Si usano le soluzioni sicure (sezione in fondo).
 
 ## Fase 2 — copia di sicurezza (sola lettura)
 
