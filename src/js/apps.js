@@ -71,7 +71,7 @@
         (cfg.apps || []).forEach(function (entry) {
             // "Canali TV" non è un'app installata ma l'antenna (Inputs.openTv).
             if (entry.id === LIVE_TV) {
-                out.push({ kind: 'tv', id: LIVE_TV, label: entry.label || 'Canali TV', brand: findBrand(entry.brand || 'tv') });
+                out.push(liveTv(entry.label));
                 return;
             }
             var re = entry.match ? new RegExp(entry.match, 'i') : null;
@@ -131,7 +131,12 @@
         };
     }
 
+    function liveTv(label) {
+        return { kind: 'tv', id: LIVE_TV, label: label || 'Canali TV', brand: findBrand('tv') };
+    }
+
     window.Apps = {
+        liveTv: liveTv,
         getInstalledApps: getInstalledApps,
         launchable: launchable,
         curated: curated,

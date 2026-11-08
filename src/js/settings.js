@@ -369,6 +369,9 @@
         var onHome = {};
         ed.items.forEach(function (i) { onHome[i.id] = true; });
         ed.others = Apps.allSorted(Home.apps(), false).filter(function (a) { return !onHome[a.id]; });
+        // Canali TV non è un'app installata: se l'hai tolta dalla Home, la puoi rimettere da qui.
+        var tv = Apps.liveTv();
+        if (!onHome[tv.id]) ed.others.unshift(tv);
     }
 
     function edRow(item, moving) {
