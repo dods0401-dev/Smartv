@@ -201,6 +201,7 @@
         return [
             { title: 'Cambia frase ogni', group: 'phrases', key: 'every', options: Phrases.EVERY.map(function (s) { return [s.key, s.label]; }) },
             { title: 'Informazioni nel vetro', group: 'info', key: 'show', options: Info.SHOW.map(function (s) { return [s.key, s.label]; }) },
+            { title: 'Apri Home TV all\'accensione (prova)', key: 'wake', options: [['off', 'Spento'], ['on', 'Attivo']] },
             { title: 'Modalità sera (dalle 22)', key: 'night', options: [['auto', 'Automatica'], ['off', 'Spenta']] },
             { title: 'Movimento', key: 'motion', options: [['on', 'Attivo'], ['off', 'Ridotto (TV più veloce)']] }
         ];
@@ -646,6 +647,7 @@
             { label: 'Home', value: 'Frasi, informazioni, sera', run: function () { UI.show('style'); } },
             { label: 'Aspetto', value: Appearance.font(a.font).label + ' · ' + (a.clock === '12h' ? '12 ore' : '24 ore'), run: function () { UI.show('appearance'); } },
             { label: 'Suono dei tasti', value: soundSummary(), run: function () { UI.show('sound-settings'); } },
+            { label: 'Accensione (prova)', value: Wake.status(), run: function () { UI.toast('Ultimo tentativo: ' + Wake.status()); } },
             { label: 'Dispositivi HDMI', value: shown + ' nella Home', run: function () { UI.show('consoles'); } },
             {
                 label: 'Aggiorna elenco app', value: 'Dopo nuove app', run: function () {

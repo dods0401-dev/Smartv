@@ -37,7 +37,8 @@
                 font: 'manrope',        // see Appearance.FONTS
                 names: 'focused',       // app names under tiles: 'always' | 'focused' | 'never'
                 motion: 'on',           // 'on' | 'off': animazioni di sfondo, entrata e riflessi
-                night: 'auto'           // 'auto': dalle 22 alle 6 Home più scura | 'off'
+                night: 'auto',          // 'auto': dalle 22 alle 6 Home più scura | 'off'
+                wake: 'off'             // 'on': prova a riaprire Home TV all'accensione (wake.js)
             },
             // Informazioni nel vetro (info.js): 'tutto' | 'tv' | 'calcio' | 'spente'
             info: {
