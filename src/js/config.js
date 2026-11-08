@@ -28,7 +28,7 @@ window.LAUNCHER_CONFIG = {
         { match: 'disney', label: 'Disney+', brand: 'disneyplus' },
         { match: 'apple ?tv|aria-video', label: 'Apple TV', brand: 'appletv' },
         { match: 'raiplay|rai ?play', label: 'RaiPlay', brand: 'raiplay' },
-        { match: 'youtube|cobalt-yt', label: 'YouTube', brand: 'youtube' },
+        { match: 'youtube|cobalt-yt', label: 'YouTube', brand: 'youtube', tvIcon: false },
         { match: 'spotify', label: 'Spotify', brand: 'spotify' }
     ],
 
@@ -41,7 +41,7 @@ window.LAUNCHER_CONFIG = {
 
     // Nascoste da "Tutte le app" (testo cercato nel nome o nell'id): preinstallate Samsung e
     // componenti di sistema. Restano installate sulla TV.
-    hiddenApps: ['kant', 'workspace', 'qvc'],
+    hiddenApps: ['kant', 'workspace', 'qvc', 'internet', 'org\\.tizen\\.browser'],
 
     // How an input tile switches the TV. See README "HDMI inputs".
     //   'switch+viewer'  set the TV source, then open Samsung's TV viewer (default)

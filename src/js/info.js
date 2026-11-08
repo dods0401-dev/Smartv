@@ -64,11 +64,17 @@
         } else if (node && typeof node === 'object') {
             var t = /^(\d{1,2}):(\d{2})/.exec(field(node, TIME_KEYS));
             var name = field(node, NAME_KEYS);
-            if (t && name) out.push({ min: +t[1] * 60 + +t[2], time: pad(+t[1]) + ':' + t[2], name: name.trim() });
+            if (t && name) out.push({ min: +t[1] * 60 + +t[2], time: pad(+t[1]) + ':' + t[2], name: shortTitle(name) });
             Object.keys(node).forEach(function (k) {
                 if (node[k] && typeof node[k] === 'object') collect(node[k], out);
             });
         }
+    }
+
+    // "L'Eredità Speciale AIRC - Puntata del 08/11/2026" → "L'Eredità Speciale AIRC"
+    function shortTitle(name) {
+        var t = name.split(/\s+[-–|]\s+/)[0].replace(/\s*\(.*?\)\s*$/, '').trim();
+        return t.length > 34 ? t.slice(0, 32).trim() + '…' : t;
     }
 
     function channelLabel(id) {
@@ -90,7 +96,7 @@
             if (i < 0) { tvText = ''; render(); return; }
             var cur = list[i];
             var next = list[i + 1];
-            tvText = channelLabel(channel) + ' · ora: ' + cur.name + (next ? '  ·  ' + next.time + ' ' + next.name : '');
+            tvText = channelLabel(channel) + ' · ' + cur.name + (next ? '  ›  ' + next.time + ' ' + next.name : '');
             render();
         }, function () {
             DevLog.log('Info TV: palinsesto non disponibile');

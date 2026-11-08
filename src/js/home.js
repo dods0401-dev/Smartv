@@ -426,7 +426,11 @@
                 else if (item.kind === 'input') openInput(item);
                 else if (item.kind === 'settings') UI.show('settings');
             },
-            onShow: function (opts) { Glass.enter(!opts.back); },
+            onShow: function (opts) {
+                Glass.enter(!opts.back);
+                // A ogni apertura (non tornando dalle Impostazioni) si parte dalla prima app: Canali TV.
+                if (!opts.back && $('apps-row').firstChild) UI.focusOn($('apps-row').firstChild);
+            },
             onFocus: function (el) { Ambient.focus(el && el._item); },
             // Home is the root: Back does nothing.
             onBack: function () { return true; }

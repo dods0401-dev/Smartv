@@ -144,6 +144,12 @@
         g.addColorStop(1, 'rgba(0,0,0,0)');
         ctx.fillStyle = g;
         ctx.fillRect(0, 0, W, H);
+        // In alto (meteo e Impostazioni) un velo leggero, per le foto con il cielo chiaro.
+        var top = ctx.createLinearGradient(0, 0, 0, H * 0.3);
+        top.addColorStop(0, 'rgba(0,0,0,0.35)');
+        top.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = top;
+        ctx.fillRect(0, 0, W, H * 0.3);
         var v = ctx.createLinearGradient(0, H * 0.45, 0, H);
         v.addColorStop(0, 'rgba(0,0,0,0)');
         v.addColorStop(1, 'rgba(0,0,0,0.5)');

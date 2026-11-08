@@ -118,7 +118,8 @@
             iconPath: app.iconPath || '',
             icon: entry.icon || '',
             iconSearch: entry.iconSearch || '',
-            backdrop: entry.backdrop || ''
+            backdrop: entry.backdrop || '',
+            tvIcon: entry.tvIcon
         };
     }
 

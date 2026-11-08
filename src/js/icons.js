@@ -139,6 +139,9 @@
 
     function apply(tile, img, from) {
         stats[from]++;
+        // Le icone Samsung sono spesso rettangoli larghi già composti: riempiono la tessera.
+        // Quelle quasi quadrate (come le icone App Store) restano intere al centro.
+        if (img.naturalWidth / img.naturalHeight >= 1.15) img.classList.add('fill');
         tile.classList.add('real-icon');
         tile.appendChild(img);
         var color = edgeColor(img);
@@ -166,8 +169,11 @@
             });
         }
         // Prima l'icona della TV (è quella vera, la stessa del menu Samsung); per le app della Home,
-        // se la TV non ce l'ha, quella cercata su internet.
-        fromTv(item.onHome ? function () { fromWeb(none); } : function () {});
+        // se la TV non ce l'ha, quella cercata su internet. `tvIcon: false` in config.js salta
+        // l'icona della TV per un'app (es. YouTube, la cui icona sulla TV è quella di TizenTube).
+        var web = item.onHome ? function () { fromWeb(none); } : none;
+        if (item.tvIcon === false) web();
+        else fromTv(web);
     }
 
     // Svuota la memoria delle ricerche e azzera il conteggio (per il controllo in Avanzate).

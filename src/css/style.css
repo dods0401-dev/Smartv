@@ -1512,3 +1512,35 @@ html.preview, html.preview body {
 .ss-time { font-size: 56px; }
 
 .no-inputs .dock { top: 440px; bottom: 104px; }
+
+/* =====================================================================================
+ * Ritocchi dopo la prova sulla TV
+ * ===================================================================================== */
+
+/* Icone larghe della TV: riempiono la tessera invece di restare piccole al centro. */
+.tile .real.fill { object-fit: cover; }
+
+/* Meteo e Impostazioni leggibili anche con il cielo chiaro: vetro più scuro e ombra al testo. */
+.pill .glass::after { background: rgba(8, 10, 18, 0.38); }
+.pill { text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45); }
+.tint { background: rgba(8, 10, 18, 0.38); }
+.gear.focused { background: #fff; color: #0b0d14; }
+
+/* Pannello più compatto: tessere più piccole, più foto visibile. */
+.no-inputs .dock { top: 486px; bottom: 100px; }
+.app { width: 300px; margin-right: 28px; }
+.tile { height: 169px; border-radius: 16px; }
+.row-small .app { width: 196px; margin-right: 24px; }
+.row-small .tile { height: 110px; border-radius: 12px; }
+.app .label { margin-top: 16px; font-size: 24px; }
+.row-small .app .label { margin-top: 10px; font-size: 20px; }
+.dock-clip { padding-top: 22px; }
+.info-row { height: 34px; margin-bottom: 12px; font-size: 22px; }
+.clock { top: 130px; }
+
+/* Vetro fumé: leggibile anche quando la foto dietro è molto chiara. */
+.dock .glass::after { background: rgba(8, 10, 18, 0.34); }
+.info-row, .dock .app .label { text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5); }
+.no-inputs .dock { bottom: 150px; }
+.info-row { margin-bottom: 24px; }
+.dock-clip { padding-top: 20px; }
