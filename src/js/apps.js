@@ -90,9 +90,16 @@
         return out;
     }
 
+    // App preinstallate da Samsung o di sistema da non mostrare in "Tutte le app" (config.js).
+    function hidden(a) {
+        var list = window.LAUNCHER_CONFIG.hiddenApps || [];
+        var text = (a.name || '') + ' ' + a.id;
+        return list.some(function (p) { return new RegExp(p, 'i').test(text); });
+    }
+
     function allSorted(apps, showEverything) {
         return apps
-            .filter(function (a) { return showEverything ? a.show : isConsumer(a); })
+            .filter(function (a) { return showEverything ? a.show : isConsumer(a) && !hidden(a); })
             .map(function (a) { return toItem(a, {}); })
             .sort(function (x, y) { return x.label.localeCompare(y.label); });
     }

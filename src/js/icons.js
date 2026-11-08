@@ -1,10 +1,10 @@
 /*
  * Icone originali delle app.
  *
- * Per le app della Home: prima l'icona ufficiale cercata su internet (App Store, alta qualità e
- * tutte nello stesso formato), ricordata sulla TV; se non si trova, l'icona che fornisce la TV;
- * se manca anche quella, il logo disegnato di brands.js. Le altre app (Tutte le app) usano solo
- * l'icona della TV, per non fare decine di ricerche.
+ * Prima l'icona che fornisce la TV (la stessa del menu Samsung). Per le app della Home, se la TV
+ * non ce l'ha, quella ufficiale cercata su internet (App Store) e ricordata sulla TV. Se manca
+ * anche quella resta il logo disegnato di brands.js. Le altre app (Tutte le app) non cercano su
+ * internet, per non fare decine di ricerche.
  *
  * Impostazioni → Avanzate → Icone delle app svuota la memoria e dice da dove arrivano.
  *
@@ -150,10 +150,10 @@
         function none() {
             if (item.onHome) stats.none++;
         }
-        function fromTv() {
-            if (!item.iconPath) return none();
+        function fromTv(fail) {
+            if (!item.iconPath) return fail();
             var src = item.iconPath.charAt(0) === '/' ? 'file://' + item.iconPath : item.iconPath;
-            loadImage(src, false, function (img) { apply(tile, img, 'tv'); }, none);
+            loadImage(src, false, function (img) { apply(tile, img, 'tv'); }, fail);
         }
         function fromWeb(fail) {
             if (item.icon) {
@@ -165,8 +165,9 @@
                 else fail();
             });
         }
-        if (item.onHome) fromWeb(fromTv);
-        else if (item.iconPath) fromTv();
+        // Prima l'icona della TV (è quella vera, la stessa del menu Samsung); per le app della Home,
+        // se la TV non ce l'ha, quella cercata su internet.
+        fromTv(item.onHome ? function () { fromWeb(none); } : function () {});
     }
 
     // Svuota la memoria delle ricerche e azzera il conteggio (per il controllo in Avanzate).

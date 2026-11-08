@@ -34,6 +34,11 @@
         app('NowTvItal0.NOW', 'NOW'),
         app('org.tizen.tvplus', 'Samsung TV Plus'),
         app('org.tizen.browser', 'Internet'),
+        // Preinstallate sulla TV reale (UE55U8000F), da nascondere in Tutte le app
+        app('SmtvKant25.Kant', '2025.SmartTV.Kant'),
+        app('SamsungWsp.Workspace', 'Workspace'),
+        app('QvcPlusIta.QVC', 'QVC+'),
+        app('NowTvItal1.NowTV', 'NOW'),
         // Noise that the consumer filter should hide
         app('com.samsung.tv.ep-dataservice-app', 'ep-dataservice-app'),
         app('adplatform.ADPlayer', 'ADPlayer'),

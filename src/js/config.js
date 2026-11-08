@@ -39,6 +39,10 @@ window.LAUNCHER_CONFIG = {
      */
     inputs: [],
 
+    // Nascoste da "Tutte le app" (testo cercato nel nome o nell'id): preinstallate Samsung e
+    // componenti di sistema. Restano installate sulla TV.
+    hiddenApps: ['kant', 'workspace', 'qvc'],
+
     // How an input tile switches the TV. See README "HDMI inputs".
     //   'switch+viewer'  set the TV source, then open Samsung's TV viewer (default)
     //   'switch'         only set the TV source
