@@ -1381,3 +1381,183 @@ html.preview, html.preview body {
 /* Pannello alto quanto il contenuto: titolo, tessere, nome dell'app selezionata. */
 .no-inputs .dock { top: 618px; bottom: 128px; }
 .dock { bottom: 128px; }
+
+/* =====================================================================================
+ * Icone vere delle app (home.js → tryRealIcon). L'immagine della TV copre il logo disegnato;
+ * se non arriva, resta il logo.
+ * ===================================================================================== */
+
+.tile.real-icon > :not(.real) { display: none; }
+
+.tile .real {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: inherit;
+}
+
+/* =====================================================================================
+ * Stili della Home (Impostazioni → Stile). "Vetro" è lo stile di base qui sopra; gli altri
+ * sovrascrivono solo quello che cambiano. Stesse regole di prestazioni.
+ * ===================================================================================== */
+
+/* ---------- Cinema: niente pannello, saluto grande, tessere larghe come locandine ---------- */
+
+.style-cinema .dock .glass { display: none; }
+
+.style-cinema .dock,
+.style-cinema .no-inputs .dock {
+    left: 0;
+    right: 0;
+    top: 600px;
+    bottom: 110px;
+    border-radius: 0;
+}
+
+.style-cinema .dock .shelf,
+.style-cinema .no-inputs .dock #apps-section { padding: 0 120px; }
+
+.style-cinema .dock .shelf h2 { display: none; }
+
+.style-cinema .clock { top: 250px; }
+
+.style-cinema #greeting {
+    margin-bottom: 18px;
+    font-size: 112px;
+    font-weight: 800;
+    letter-spacing: -3px;
+    text-transform: none;
+    color: #fff;
+}
+
+.style-cinema #time {
+    display: inline-block;
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+
+.style-cinema #time-suffix { font-size: 24px; }
+
+.style-cinema #date {
+    display: inline-block;
+    margin: 0 0 0 20px;
+    font-size: 40px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.style-cinema #greeting:empty + #time { font-size: 120px; font-weight: 200; }
+
+.style-cinema .app { width: 360px; margin-right: 30px; }
+.style-cinema .tile { height: 203px; border-radius: 14px; }
+
+.style-cinema .app.focused .tile {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 5px #fff, 0 30px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* ---------- Icone: icone quadrate come sul telefono, orologio al centro ---------- */
+
+.style-icone .clock {
+    top: 150px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.style-icone #time { font-size: 170px; }
+
+.style-icone .dock,
+.style-icone .no-inputs .dock {
+    left: 120px;
+    right: 120px;
+    top: 560px;
+    bottom: 120px;
+    border-radius: 64px;
+}
+
+.style-icone .dock .shelf h2 { display: none; }
+
+.style-icone .dock-clip { padding-top: 46px; }
+
+.style-icone .app { width: 196px; margin-right: 36px; }
+
+.style-icone .tile {
+    height: 196px;
+    border-radius: 46px;
+}
+
+.style-icone .app .label {
+    margin-top: 18px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.style-icone .mark { top: 25%; left: 25%; width: 50%; height: 50%; }
+.style-icone .wordmark { font-size: 34px; }
+.style-icone .all-tile svg { width: 72px; height: 72px; margin: -36px 0 0 -36px; }
+
+.style-icone .app.focused .tile {
+    transform: translateY(-12px) scale(1.12);
+    box-shadow: 0 0 0 4px #fff, 0 30px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- Chiaro: sfondi chiari, vetro bianco, testo scuro ---------- */
+
+.style-chiaro {
+    --glass-tint: rgba(255, 255, 255, 0.42);
+    --glass-edge: rgba(255, 255, 255, 0.75);
+    color: #16161d;
+}
+
+.style-chiaro #home { color: #16161d; }
+
+.style-chiaro .clock { text-shadow: none; }
+.style-chiaro #greeting { color: rgba(22, 22, 29, 0.55); }
+.style-chiaro #time { font-weight: 300; }
+.style-chiaro #date { color: rgba(22, 22, 29, 0.65); }
+
+.style-chiaro .glass {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 0 0 1px var(--glass-edge),
+        0 40px 90px rgba(90, 60, 140, 0.18);
+}
+
+.style-chiaro .tint {
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0 0 0 1px var(--glass-edge), 0 10px 30px rgba(90, 60, 140, 0.12);
+}
+
+.style-chiaro .gear { color: #16161d; }
+.style-chiaro .gear.focused { background: #16161d; color: #fff; }
+.style-chiaro .wx-place { color: rgba(22, 22, 29, 0.6); }
+
+.style-chiaro .dock .shelf h2 { color: rgba(22, 22, 29, 0.55); }
+
+.style-chiaro .row-track .tile {
+    box-shadow: 0 12px 26px rgba(60, 40, 100, 0.18);
+}
+
+.style-chiaro .app.focused .tile,
+.style-chiaro .input.focused .tile {
+    box-shadow: 0 0 0 4px #16161d, 0 30px 50px rgba(60, 40, 100, 0.3);
+}
+
+.style-chiaro .app .label { color: rgba(22, 22, 29, 0.6); }
+.style-chiaro .app.focused .label { color: #16161d; }
+.style-chiaro .all-tile { background: rgba(22, 22, 29, 0.08); }
+.style-chiaro .all-tile svg { fill: #16161d; }
+
+.style-chiaro:not(.on-page) .hints { color: rgba(22, 22, 29, 0.6); }
+.style-chiaro:not(.on-page) .hint-key { background: rgba(22, 22, 29, 0.08); color: #16161d; }
+.style-chiaro:not(.on-page) #toast { background: rgba(255, 255, 255, 0.92); color: #16161d; }
+
+/* Le pagine restano scure (testo bianco): sopra uno sfondo chiaro serve un velo più scuro. */
+.style-chiaro .page::before { background: rgba(10, 10, 18, 0.62); }
+.style-chiaro .page { color: #f4f5f7; }
+
+.style-icone .dock,
+.style-icone .no-inputs .dock { top: 610px; bottom: 130px; }

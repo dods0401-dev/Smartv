@@ -16,6 +16,14 @@
         { key: 'it-IT', label: 'Italiano' }
     ];
 
+    // Stili della Home: ognuno è una classe su #stage, definita in fondo a style.css.
+    var STYLES = [
+        { key: 'vetro', label: 'Vetro' },
+        { key: 'cinema', label: 'Cinema' },
+        { key: 'icone', label: 'Icone' },
+        { key: 'chiaro', label: 'Chiaro' }
+    ];
+
     var FALLBACK = ', "SamsungOne", "Helvetica Neue", Arial, sans-serif';
 
     function prefs() { return Prefs.get().appearance; }
@@ -61,11 +69,14 @@
         home.classList.toggle('names-never', p.names === 'never');
         home.classList.toggle('no-date', !p.showDate);
         document.documentElement.classList.toggle('no-motion', p.motion === 'off');
+        var stage = document.getElementById('stage');
+        STYLES.forEach(function (s) { stage.classList.toggle('style-' + s.key, (p.style || 'vetro') === s.key); });
     }
 
     window.Appearance = {
         FONTS: FONTS,
         LOCALES: LOCALES,
+        STYLES: STYLES,
         font: font,
         time: time,
         date: date,

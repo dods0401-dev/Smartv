@@ -34,7 +34,9 @@
                 locale: cfg.locale || 'en-GB',
                 font: 'manrope',        // see Appearance.FONTS
                 names: 'focused',       // app names under tiles: 'always' | 'focused' | 'never'
-                motion: 'on'            // 'on' | 'off': animazioni di sfondo, entrata e riflessi
+                motion: 'on',           // 'on' | 'off': animazioni di sfondo, entrata e riflessi
+                style: 'vetro',         // 'vetro' | 'cinema' | 'icone' | 'chiaro' (vedi Appearance.STYLES)
+                icons: 'tv'             // 'tv': icone vere dell'app dalla TV | 'loghi': loghi disegnati
             },
             home: null,                 // [{ id, label, brand }] once edited; null = config.js apps
             inputs: null                // [{ hdmi, label, brand, method, hidden }] once edited; null = config.js

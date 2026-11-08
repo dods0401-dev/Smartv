@@ -90,6 +90,10 @@
             var visible = n === name || (def.overlay && n === def.from);
             v.el.classList.toggle('hidden', !visible);
         });
+        // Barra dei suggerimenti e avvisi cambiano colore sulle pagine (vedi lo stile Chiaro).
+        if (!def.overlay) {
+            document.getElementById('stage').classList.toggle('on-page', !!(def.el && def.el.classList.contains('page')));
+        }
         if (def.onShow) def.onShow(opts);
         // After onShow, so hints that read state see the state this view just rendered.
         renderHints(def);

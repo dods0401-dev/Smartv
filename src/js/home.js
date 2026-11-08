@@ -59,8 +59,29 @@
         img.src = path.charAt(0) === '/' ? 'file://' + path : path;
     }
 
+    /*
+     * Icona vera dell'app, quella che la TV stessa usa (Impostazioni → Aspetto → Icone).
+     * Il logo resta sotto finché l'immagine non è caricata, e resta lui se la TV non la fornisce
+     * o se il file non è leggibile da un'app web.
+     */
+    function tryRealIcon(tile, path) {
+        var img = new Image();
+        img.className = 'real';
+        img.onload = function () {
+            if (img.naturalWidth < 8) return;
+            tile.classList.add('real-icon');
+            tile.appendChild(img);
+        };
+        img.src = path.charAt(0) === '/' ? 'file://' + path : path;
+    }
+
+    function wantsRealIcons() {
+        return Prefs.get().appearance.icons !== 'loghi';
+    }
+
     function tileFace(item) {
         var tile = el('div', 'tile');
+        if (item.iconPath && item.brand && wantsRealIcons()) tryRealIcon(tile, item.iconPath);
         if (item.brand) {
             tile.style.background = item.brand.bg;
             if (item.brand.text) {
@@ -74,7 +95,8 @@
             tile.style.background = 'hsl(' + hue(item.label) + ',32%,24%)';
             var mono = el('div', 'mono', initials(item.label).toUpperCase());
             tile.appendChild(mono);
-            if (item.iconPath) tryIcon(tile, mono, item.iconPath);
+            if (item.iconPath && wantsRealIcons()) tryRealIcon(tile, item.iconPath);
+            else if (item.iconPath) tryIcon(tile, mono, item.iconPath);
         }
         return tile;
     }
@@ -501,6 +523,7 @@
         refreshInputStatus: refreshInputStatus,
         renderLab: renderLab,
         updateClock: updateClock,
+        render: renderHome,
         reloadApps: loadApps,
         miniTile: miniTile,
         miniInputTile: miniInputTile,

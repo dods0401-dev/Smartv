@@ -104,10 +104,17 @@
         return w ? w.title : 'Foto';
     }
 
+    function styleSummary() {
+        var a = Prefs.get().appearance;
+        var style = Appearance.STYLES.find(function (s) { return s.key === a.style; }) || Appearance.STYLES[0];
+        return style.label + ' · ' + (a.icons === 'loghi' ? 'loghi' : 'icone originali');
+    }
+
     function overviewEntries() {
         var a = Prefs.get().appearance;
         var shown = Home.inputs().filter(function (i) { return !i.hidden; }).length;
         return [
+            { label: 'Stile', value: styleSummary(), run: function () { UI.show('style'); } },
             { label: 'Sfondo', value: wallpaperSummary(), run: function () { UI.show('bg'); } },
             { label: 'App nella Home', value: Home.homeItems().length + ' app', run: function () { UI.show('homeapps'); } },
             { label: 'Dispositivi HDMI', value: shown + ' nella Home', run: function () { UI.show('consoles'); } },
@@ -196,16 +203,26 @@
             { title: 'Data', key: 'showDate', options: [[true, 'Mostra'], [false, 'Nascondi']] },
             { title: 'Lingua della data', key: 'locale', options: Appearance.LOCALES.map(function (l) { return [l.key, l.label]; }) },
             { title: 'Carattere', key: 'font', options: Appearance.FONTS.map(function (f) { return [f.key, f.label, f.family]; }) },
-            { title: 'Movimento', key: 'motion', options: [['on', 'Attivo'], ['off', 'Ridotto (TV più veloce)']] },
             { title: 'Nomi delle app', key: 'names', options: [['always', 'Sempre'], ['focused', 'Quando selezionata'], ['never', 'Mai']] }
         ];
     }
 
+    function styleBlocks() {
+        return [
+            { title: 'Stile della Home', key: 'style', options: Appearance.STYLES.map(function (s) { return [s.key, s.label]; }) },
+            { title: 'Icone delle app', key: 'icons', options: [['tv', 'Originali della TV'], ['loghi', 'Loghi']] },
+            { title: 'Movimento', key: 'motion', options: [['on', 'Attivo'], ['off', 'Ridotto (TV più veloce)']] }
+        ];
+    }
+
+    // Aspetto e Stile sono due pagine di chip sulle stesse preferenze (Prefs.appearance).
+    var chipPage = 'appearance';
+
     function renderAppearance() {
         var p = Prefs.get().appearance;
-        var body = $('appearance-body');
+        var body = $(chipPage + '-body');
         body.innerHTML = '';
-        appearanceBlocks().forEach(function (b) {
+        (chipPage === 'style' ? styleBlocks() : appearanceBlocks()).forEach(function (b) {
             var block = el('div', 'setting-block');
             block.appendChild(el('h2', '', b.title));
             var chips = el('div', 'chips');
@@ -221,8 +238,11 @@
 
     function activateAppearance(item) {
         Prefs.get().appearance[item.key] = item.value;
+        // Lo stile Chiaro ha bisogno di uno sfondo chiaro, gli altri di uno scuro.
+        if (item.key === 'style') Wallpaper.matchStyle(item.value);
         Prefs.save();
         Appearance.apply();
+        if (item.key === 'icons' || item.key === 'style') Home.render();
         Home.updateClock();
         renderAppearance();
         UI.refresh();
@@ -677,10 +697,18 @@
             hints: [['OK', 'Scegli'], ['Indietro', 'Impostazioni']]
         });
 
+        UI.register('style', {
+            el: $('style'),
+            rows: function () { return chipRows($('style-body')); },
+            onShow: function () { chipPage = 'style'; renderAppearance(); },
+            activate: activateAppearance,
+            hints: [['OK', 'Scegli'], ['Indietro', 'Impostazioni']]
+        });
+
         UI.register('appearance', {
             el: $('appearance'),
             rows: function () { return chipRows($('appearance-body')); },
-            onShow: renderAppearance,
+            onShow: function () { chipPage = 'appearance'; renderAppearance(); },
             activate: activateAppearance,
             hints: [['OK', 'Scegli'], ['Indietro', 'Impostazioni']]
         });

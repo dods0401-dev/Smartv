@@ -1,4 +1,4 @@
-/* Foto: Unsplash License. Sfondi astratti (Seta, Aurora liquida, Magma, Laguna, Ametista, Oro):
+/* Foto: Unsplash License. Sfondi astratti (Seta, Aurora liquida, Magma, Laguna, Ametista, Oro, Perla, Alba):
    generati per questo progetto. `blur` è la copia sfocata usata dai pannelli di vetro. */
 window.WALLPAPERS = [
     {
@@ -48,6 +48,24 @@ window.WALLPAPERS = [
         "thumb": "img/wallpapers/thumbs/oro.jpg",
         "credit": "",
         "blur": "img/wallpapers/blur/oro.jpg"
+    },
+    {
+        "key": "perla",
+        "title": "Perla",
+        "file": "img/wallpapers/perla.jpg",
+        "thumb": "img/wallpapers/thumbs/perla.jpg",
+        "credit": "",
+        "blur": "img/wallpapers/blur/perla.jpg",
+        "light": true
+    },
+    {
+        "key": "alba",
+        "title": "Alba",
+        "file": "img/wallpapers/alba.jpg",
+        "thumb": "img/wallpapers/thumbs/alba.jpg",
+        "credit": "",
+        "blur": "img/wallpapers/blur/alba.jpg",
+        "light": true
     },
     {
         "key": "coast",

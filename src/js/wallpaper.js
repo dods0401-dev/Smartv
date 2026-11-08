@@ -50,9 +50,16 @@
         display(p.mode === 'off' ? null : find(p.photo));
     }
 
+    // Rotazione solo tra sfondi adatti allo stile: chiari per Chiaro, scuri per gli altri.
+    function suited() {
+        var light = Prefs.get().appearance.style === 'chiaro';
+        var l = list().filter(function (w) { return !!w.light === light; });
+        return l.length ? l : list();
+    }
+
     function next() {
         var p = Prefs.get().wallpaper;
-        var l = list();
+        var l = suited();
         if (!l.length) return null;
         var i = l.findIndex(function (w) { return w.key === p.photo; });
         p.photo = l[(i + 1) % l.length].key;
@@ -87,7 +94,25 @@
         }, 5 * 1000);
     }
 
+    /*
+     * Lo stile Chiaro ha testo scuro e vuole uno sfondo chiaro; gli altri il contrario. Cambiando
+     * stile si passa a uno sfondo adatto solo se quello attuale non lo è.
+     */
+    function matchStyle(style) {
+        var p = Prefs.get().wallpaper;
+        var current = find(p.photo);
+        var wantLight = style === 'chiaro';
+        if (p.mode !== 'off' && current && !!current.light === wantLight) return;
+        var pick = list().find(function (w) { return !!w.light === wantLight; });
+        if (!pick) return;
+        p.photo = pick.key;
+        if (p.mode === 'off') p.mode = 'photo';
+        p.lastChange = Date.now();
+        apply();
+    }
+
     window.Wallpaper = {
+        matchStyle: matchStyle,
         INTERVALS: INTERVALS,
         list: list,
         find: find,
