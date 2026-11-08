@@ -20,16 +20,17 @@ window.LAUNCHER_CONFIG = {
      * Le app non installate vengono saltate.
      */
     apps: [
-        { id: 'live-tv', label: 'Canali TV', brand: 'tv' },
-        { match: 'dazn', label: 'DAZN', brand: 'dazn' },
+        // Prima riga (le prime 4, grandi)
         { match: 'netflix', label: 'Netflix', brand: 'netflix' },
-        { match: 'hbo|(^|\\s)max(\\s|$)', label: 'HBO Max', brand: 'hbomax' },
-        { match: 'prime ?video', label: 'Prime Video', brand: 'primevideo' },
-        { match: 'disney', label: 'Disney+', brand: 'disneyplus' },
-        { match: 'apple ?tv|aria-video', label: 'Apple TV', brand: 'appletv' },
-        { match: 'raiplay|rai ?play', label: 'RaiPlay', brand: 'raiplay' },
         { match: 'youtube|cobalt-yt', label: 'YouTube', brand: 'youtube' },
-        { match: 'spotify', label: 'Spotify', brand: 'spotify' }
+        { match: 'prime ?video', label: 'Prime Video', brand: 'primevideo' },
+        { match: 'spotify', label: 'Spotify', brand: 'spotify' },
+        // Seconda riga
+        { match: 'dazn', label: 'DAZN', brand: 'dazn' },
+        { match: 'hbo|(^|\\s)max(\\s|$)', label: 'HBO Max', brand: 'hbomax' },
+        { match: 'disney', label: 'Disney+', brand: 'disneyplus' },
+        { match: 'raiplay|rai ?play', label: 'RaiPlay', brand: 'raiplay' },
+        { id: 'live-tv', label: 'Canali TV', brand: 'tv' }   // la TV normale (antenna)
     ],
 
     /*

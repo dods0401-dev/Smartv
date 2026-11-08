@@ -5,7 +5,7 @@
     var CACHE_KEY = 'arn0.apps.v1';
     var REFRESH_AFTER_MS = 5 * 60 * 1000;
     var GRID_COLS = 5;
-    var FAVOURITES = 5;
+    var FAVOURITES = 4;
 
     var cfg = window.LAUNCHER_CONFIG;
     var log = DevLog.log;
@@ -248,9 +248,22 @@
         });
     }
 
+    var STORE_APP = 'com.samsung.tv.store';
+
+    /*
+     * Se un'app non si apre di solito non è davvero installata: Samsung mette nel menu delle
+     * scorciatoie promozionali (es. HBO Max) che si scaricano solo dal proprio menu. In quel caso
+     * si apre lo store Samsung, da cui scaricarla; dopo, la Home la trova da sola.
+     */
     function launchApp(item) {
         runLogged('Launch ' + item.id, Apps.launch(item.id)).catch(function (err) {
-            UI.toast('Impossibile aprire ' + item.label + ': ' + DevLog.errorText(err));
+            UI.toast(item.label + ' non si apre: forse non è installata. Apro lo store Samsung…');
+            log('Launch failed for ' + item.id + ': ' + DevLog.errorText(err));
+            setTimeout(function () {
+                Apps.launch(STORE_APP).catch(function () {
+                    UI.toast('Scarica ' + item.label + ' dallo store Samsung (App)');
+                });
+            }, 2500);
         });
     }
 
@@ -428,7 +441,7 @@
             },
             onShow: function (opts) {
                 Glass.enter(!opts.back);
-                // A ogni apertura (non tornando dalle Impostazioni) si parte dalla prima app: Canali TV.
+                // A ogni apertura (non tornando dalle Impostazioni) si parte dalla prima app.
                 if (!opts.back && $('apps-row').firstChild) UI.focusOn($('apps-row').firstChild);
             },
             onFocus: function (el) { Ambient.focus(el && el._item); },

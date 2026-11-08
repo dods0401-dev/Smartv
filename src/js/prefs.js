@@ -8,7 +8,7 @@
     var KEY = 'arn0.prefs.v1';
     var LEGACY_WALLPAPER_KEY = 'arn0.wallpaper';
     // Aumentato quando cambia l'impostazione di base della Home (vedi load()).
-    var LAYOUT = 4;
+    var LAYOUT = 5;
 
     function defaults() {
         var cfg = window.LAUNCHER_CONFIG || {};

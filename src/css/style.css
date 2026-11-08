@@ -1577,3 +1577,40 @@ html.preview, html.preview body {
 .dock-clip,
 #home:not(.has-info) .dock-clip { justify-content: center; padding-top: 0; }
 .no-inputs .dock { top: 530px; bottom: 120px; }
+
+/* =====================================================================================
+ * Griglia del pannello: due righe che riempiono esattamente la larghezza, centrate.
+ *   larghezza utile = 1920 - 2×64 (margini del pannello) - 2×56 (spazio interno) = 1680
+ *   riga 1: 4 tessere da 396 + 3 spazi da 32 = 1680   (16:9 → alte 223)
+ *   riga 2: 6 tessere da 260 + 5 spazi da 24 = 1680   (16:9 → alte 146), l'ultima è "Tutte le app"
+ * ===================================================================================== */
+
+.no-inputs .dock { top: 440px; bottom: 96px; }
+
+.dock-clip { justify-content: center; gap: 0; }
+
+.app { width: 396px; margin-right: 32px; }
+.app:last-child { margin-right: 0; }
+.tile { height: 223px; border-radius: 20px; }
+
+.row-small { margin-top: 4px; }
+.row-small .app { width: 260px; margin-right: 24px; }
+.row-small .app:last-child { margin-right: 0; }
+.row-small .tile { height: 146px; border-radius: 16px; }
+
+/* Nomi centrati sotto la tessera; lo spazio resta riservato anche quando non si vedono. */
+.dock .app .label { text-align: center; margin-top: 14px; font-size: 24px; }
+.row-small .app .label { margin-top: 10px; font-size: 21px; }
+
+.app.focused .tile { transform: translateY(-6px) scale(1.06); }
+.row-small .app.focused .tile { transform: translateY(-5px) scale(1.08); }
+
+.wordmark { font-size: 58px; }
+.row-small .wordmark { font-size: 38px; }
+.row-small .all-tile svg { width: 56px; height: 56px; margin: -28px 0 0 -28px; }
+
+/* Frase e informazioni più in alto per lasciare posto al pannello. */
+.clock { top: 104px; }
+#greeting { font-size: 64px; margin-bottom: 18px; }
+.clock .info-row { margin-top: 20px; }
+.no-inputs .dock { top: 430px; bottom: 128px; }
