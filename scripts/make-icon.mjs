@@ -1,5 +1,5 @@
 // Writes a simple placeholder src/icon.png (512x512) with no dependencies. Only used when src/icon.png
-// is missing: the real icon (schermo di vetro con tramonto sul mare) is committed in src/icon.png.
+// is missing: the real icon (schermo di vetro con costa italiana) is committed in src/icon.png.
 import { writeFileSync } from 'node:fs';
 import { deflateSync } from 'node:zlib';
 import { resolve } from 'node:path';
